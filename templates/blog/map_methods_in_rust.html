@@ -1,0 +1,249 @@
+{% extends 'general/base.html' %}
+
+{% load static %}
+
+{% block head_tag %}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="Map methods in Rust" content="Map methods in Rust" />
+  <meta name="keywords" content="Rust, advanced, map method, iterator, collection">
+  <title>Map methods in Rust</title>
+{% endblock %}
+
+{% block body %}
+
+{% include 'general/side_navbar.html' %}
+
+<div class="main-wrapper">
+      
+  <article class="blog-post px-3 py-5 p-md-5">
+    <div class="container single-col-max-width">
+      <header class="blog-post-header">
+        <h2 class="title mb-2">Map methods in Rust</h2>
+        <div class="meta mb-3"><span class="date">Dec 2025</span><span class="time">6 min read</span></div>
+      </header>
+
+      <div class="blog-post-body">
+
+        <p>
+        Rust has functional programming features, namely the ability to use functions as arguments or return them from other functions. To better understand adapter methods such as <code>map</code>, it is worth first revisiting iterators and collections.
+        </p>
+
+        <h3 class="mt-5 mb-3">Iterator Vs collection</h3>
+        <p>
+        A collection is a data structure that holds values in memory eg. <code>Vec&lt;T&gt;</code>. An iterator however, does not store values and only provides a way to access a sequence of values and generate them often into another collection.
+        </p>
+
+        <p>
+        The iterator as defined in the <a target="_blank" href="https://doc.rust-lang.org/core/iter/trait.Iterator.html#tymethod.next">iterator trait</a> has a <code>next</code> method which returns the elements of the iterator <code>Option&lt;T&gt;</code> i.e. <code>Some&lt;T&gt;</code> or <code>None</code>. Other iterator methods are built on top of the <code>next</code> method.
+        </p>
+
+        <h3 class="mt-5 mb-3">Create an iterator from a collection</h3>
+        <p>
+        Here are 3 methods used to create an iterator from a collection.
+        </p>
+
+        <b><i>1. iter()</i></b>
+
+        <p>
+        Provides an iterator of <u>immutable</u> references to all content of the collection.
+        </p>
+
+<br>
+<div id="editor1">
+let v: Vec&lt;i32&gt; = vec![1, 2, 3];
+for i in v.iter() {
+    println!("value: {}", i);
+}
+</div>
+<br>
+ 
+        <b><i>2. iter_mut()</i></b>
+
+        <p>
+        Provides an iterator of <u>mutable</u> references which means that the elements of the collection can be changed with this iterator.
+        </p>
+
+<br>
+<div id="editor2">
+let mut v: Vec&lt;String&gt; = vec!["hi".to_string(), "there".to_string()];
+for s in v.iter_mut() {
+    *s += "!";
+}
+println!("{:?}", v);
+// hi!there!
+</div>
+<br>
+
+        <b><i>3. into_iter()</i></b>
+
+        <p>
+        Transforms the collection into an iterator when the collection is no longer needed. In other words, it <u>transfers ownership</u> of each element.
+        </p>
+
+<br>
+<div id="editor3">
+// use a data type that does not implement COPY such as an array
+// the code errors out due to "borrow of moved value: `vec`"
+let vec: Vec&lt;i32&gt; = vec![1, 2, 3];
+println!("{:?}", vec.into_iter());
+println!("{:?}", vec); // bad
+</div>
+<br>
+
+        <p>
+        To produce a collection from the iterator from <code>into_iter()</code>, use <code>collect()</code>. The <code>collect()</code> method needs to know the type it is collecting whether inferred from the variable type or using something like <code>vec.into_iter().collect::&lt;Vec&lt;_&gt;&gt;()</code>. Elements of the collection generated have the same type as the ones in the original collection.
+        </p>
+
+        <p>
+        To collect iterator elements into a different type, use the following:
+        </p>
+
+<br>
+<div id="editor4">
+vec.into_iter().map(|x| x as i64).collect::&lt;Vec&lt;i64&gt;&gt;()
+</div>
+<br>
+
+        <p>
+        This leads us nicely to <b>adapter methods</b>.
+        </p>
+
+        <h3 class="mt-5 mb-3">Adapter methods</h3>
+        <p>
+        They take an iterator type and return another iterator. <a target="_blank" href="https://doc.rust-lang.org/core/iter/trait.Iterator.html#method.map"><code>map</code></a> and <code>filter</code> are the most common adapter methods.
+        </p>
+
+        <p>
+        The <code>map</code> method as seen in its <a target="_blank" href="https://doc.rust-lang.org/src/core/iter/traits/iterator.rs.html#773-779">source code</a> is an iterator method. It takes a closure as an argument. The iterator will call the closure on every element to produce a new iterator.
+        </p>
+
+        <p>
+        It is worth mentioning at this point that iterators and their methods are lazy meaning that they execute when calling methods like <code>next()</code> and <code>collect()</code>, consumer methods.
+        </p>
+
+        <p>
+        What are some different flavors of the <code>map()</code> method?
+        </p>
+
+        <h4 class="mt-5 mb-3"><code>filter_map</code></h4>
+
+        <p>
+        <a target="_blank" href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.filter_map">filter_map</a> is used to create an iterator that both filters and maps, such that the chain of methods to do both is replaced by 1 method.
+        </p>
+
+        <p>
+        Given a vector of strings <code>vec!["one", "1", "two", "2", "three", "3"]</code>, we want to produce another vector containing all values that can be parsed to type <code>i32</code>. We can do that using <code>filter().map()</code> or more efficiently using <code>filter_map()</code>. Here is the code for both:
+        </p>
+
+<br>
+<div id="editor5">
+// Our starting point
+let original_vec: Vec&lt;&str&gt; = vec!["one", "1", "two", "2", "three", "3"];
+
+// Return values that can be parsed into i32
+let filtered: Vec&lt;_&gt; = original_vec.iter().filter(|x| x.parse::&lt;i32&gt;().is_ok()).collect();
+println!("{:?}", filtered);
+// ["1", "2", "3"]
+// but this is not Vec&lt;i32&gt;
+
+// Transform that into Vec&lt;i32&gt;
+let end_result: Vec&lt;i32&gt; = filtered.iter().map(|x| x.parse::&lt;i32&gt;().unwrap()).collect();
+println!("{:?}", end_result);
+// [1, 2, 3]
+</div>
+<br>
+
+        <p>Here is the code using <code>filter_map()</code>:</p>
+
+<br>
+<div id="editor6">
+// Our starting point
+let original_vec: Vec&lt;&str&gt; = vec!["one", "1", "two", "2", "three", "3"];
+
+// Map and parse at the same time
+let end_result: Vec&lt;i32&gt; = original_vec.iter().filter_map(|s| s.parse::&lt;i32&gt;().ok()).collect();
+println!("{:?}", end_result);
+// [1, 2, 3]
+</div>
+<br>
+
+        <h4 class="mt-5 mb-3"><code>map_windows</code> [Nightly]</h4>
+
+        <p>
+        This method creates an iterator over all contiguous windows of size <code>n</code>. As the name indicates, it provides a rolling window of a certain length on which you can run a closure or an operation.
+        </p>
+
+        <p>
+        You can try this method locally using the Rust nightly build or on <a target="_blank" href="https://play.rust-lang.org">Rust playground</a>. In the code below, the average of the rolling 3 numbers is computed.
+        </p>
+
+<br>
+<div id="editor7">
+#![feature(iter_map_windows)]
+
+fn main() {
+    let data: Vec&lt;f64&gt; = vec![12.0, 13.0, 14.0, 15.0, 16.0];
+    let moving_average: Vec&lt;f64&gt; = data.iter().map_windows(|[x, y, z]| (*x + *y + *z)/ 3 as f64).collect();
+    println!("{:?}", moving_average);
+}
+// [13.0, 14.0, 15.0]
+</div>
+<br>
+
+        <h4 class="mt-5 mb-3"><code>find_map</code></h4>
+
+        <p>
+        This method helps find the first occurence of an element that satisfies certain criteria. For example if you are looking for the first integer in a vector of strings.
+        </p>
+
+<br>
+<div id="editor8">
+let v: Vec&lt;&str&gt; = vec!["one", "1", "two", "2", "three", "3"];
+let first: Option&lt;i32&gt; = v.iter().find_map(|x| x.parse::&lt;i32&gt;().ok());
+println!("{}", first.unwrap());
+// 1
+</div>
+<br>
+
+        <h4 class="mt-5 mb-3"><code>flat_map</code></h4>
+
+        <p>
+        With <code>flat_map</code> you can iterate over elements while flattening them at the same time. The example below demonstrates flattening arrays but this can be done to characters as well.
+        </p>
+
+<br>
+<div id="editor9">
+let v: Vec&lt;[i32; 3]&gt; = vec![[0, 1, 2], [3, 4, 5], [6, 7, 8]];
+let result: Vec&lt;i32&gt; = v.iter().flat_map(|arr| arr.iter().copied()).collect();
+println!("{:?}", result);
+// [0, 1, 2, 3, 4, 5, 6, 7, 8]
+</div>
+<br>
+
+
+        <br>
+        <hr>
+        <p>
+        There are many other <a target="_blank" href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#provided-methods">iterator methods</a> in Rust. Although it might take a while to understand long lines with chained methods, I find they make the code richer with added variety.
+        </p>
+
+      </div>
+    </div><!--//container-->
+  </article>
+      
+  <section class="cta-section theme-bg-light py-5">
+  <div class="container text-center">
+    <h2 class="heading">Another Rust blog</h2>
+    <div class="intro">(with the occasional DevOps article) 😬</div>
+    <div class="single-form-max-width pt-3 mx-auto">
+    {% include 'general/subscriber_form.html' %}
+    </div><!--//single-form-max-width-->
+  </div><!--//container-->
+  </section>
+    
+</div><!--//main-wrapper-->
+
+    
+{% endblock %}
+

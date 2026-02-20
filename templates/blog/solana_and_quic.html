@@ -1,0 +1,81 @@
+{% extends 'general/base.html' %}
+
+{% load static %}
+
+{% block head_tag %}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="Solana and QUIC" content="Solana and QUIC" />
+  <meta name="keywords" content="Solana, QUIC, protocol, computer networking, UDP, TCP, blockchain, web3">
+  <title>Solana and QUIC</title>
+{% endblock %}
+
+{% block body %}
+
+{% include 'general/side_navbar.html' %}
+
+<div class="main-wrapper">
+      
+  <article class="blog-post px-3 py-5 p-md-5">
+    <div class="container single-col-max-width">
+      <header class="blog-post-header">
+        <h2 class="title mb-2">Solana and QUIC</h2>
+        <div class="meta mb-3"><span class="date">September 2024</span><span class="time">3 min read</span></div>
+      </header>
+
+      <div class="blog-post-body">
+        <figure class="blog-banner">
+          <img class="img-fluid" src="{% static 'assets/images/solana_and_quic/solana_and_quic.png' %}" alt="image">
+        </figure>
+
+        <p>In late 2022, Solana adopted the QUIC networking protocol to manage interactions with leader nodes. Legend has it, no major attacks have been carried out on the Solana network since then.</p>
+
+        <h3 class="mt-5 mb-3">The OSI model</h3>
+        <p>Stands for Open System Interconnection model and comprises 7 layers that sit between device-to-device communication.</p>
+        <p>The layers of this conceptual model from bottom to top include: physical, data, network, transport, session, presentation and application.</p>
+
+        <h3 class="mt-5 mb-3">Layer 4: Transport</h3>
+        <p>Establishes how data is transferred between devices on the same network. It involves connection-oriented communication (TCP) or connectionless (UDP).</p>
+
+        <h3 class="mt-5 mb-3">TCP (Transmission Control Protocol)</h3>
+        <p>TCP involves:</p>
+        <ul>
+          <li>Establishing a 3-step handshake connection between client and server</li>
+          <li>Sending data across the network in the form of packets</li>
+          <li>If the packet is lost or damaged, the rest need to wait until the packet is received correctly</li>
+        </ul>
+
+        <h3 class="mt-5 mb-3">UDP (User Datagram Protocol)</h3>
+        <p>This one sends data across the network as datagrams. Unlike TCP, UDP is connectionless and does not track the transmission of the datagrams.</p>
+        <p>No handshake is involved for establishing a connection which makes it faster but unreliable.</p>
+
+        <h3 class="mt-5 mb-3">Enter QUIC (Quick UDP)</h3>
+        <p>A newer protocol that combines the reliability of TCP and the low-latency of UDP.</p>
+        <p>Solana implemented a raw UDP protocol and adopted QUIC in Mainnet-beta release 1.13.4. Here are the advantages:</p>
+
+        <ul>
+          <li>Optimised handshake process</li>
+          <li>Efficient packet management</li>
+          <li>Ability to customise, eg. implementing a Firedancer QUIC server</li>
+        </ul>
+
+        <br>
+      </div>
+    </div><!--//container-->
+  </article>
+      
+  <section class="cta-section theme-bg-light py-5">
+  <div class="container text-center">
+    <h2 class="heading">Another Rust blog</h2>
+    <div class="intro">(with the occasional DevOps article) 😬</div>
+    <div class="single-form-max-width pt-3 mx-auto">
+    {% include 'general/subscriber_form.html' %}
+    </div><!--//single-form-max-width-->
+  </div><!--//container-->
+  </section>
+    
+</div><!--//main-wrapper-->
+
+    
+{% endblock %}
+

@@ -1,0 +1,53 @@
+{% extends 'general/base.html' %}
+
+{% load static %}
+
+{% block head_tag %}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="A primer on learning Rust" content="An introduction to Rust" />
+  <meta name="keywords" content="Rust, memory, variables, tuples, structs, enums, options, iterators, borrowing, ownership, traits">
+  <title>A primer on learning Rust</title>
+{% endblock %}
+
+{% block body %}
+
+{% include 'general/side_navbar.html' %}
+
+<div class="main-wrapper">
+      
+  <article class="blog-post px-3 py-5 p-md-5">
+    <div class="container single-col-max-width">
+      <header class="blog-post-header">
+        <h2 class="title mb-2">The layers of a blockchain</h2>
+        <div class="meta mb-3"><span class="date">April 2022</span><span class="time">5 min read</span></div>
+      </header>
+
+      <div class="blog-post-body">
+        <figure class="blog-banner">
+          <img class="img-fluid" src="{% static 'assets/images/blockchain_layers/blockchain_layers.png' %}" alt="image">
+        </figure>
+
+        <p>
+          Like an onion, the blockchain has several layers.
+        </p>
+ 
+      </div>
+    </div><!--//container-->
+  </article>
+      
+  <section class="cta-section theme-bg-light py-5">
+  <div class="container text-center">
+    <h2 class="heading">Another Rust blog</h2>
+    <div class="intro">(with the occasional DevOps article) 😬</div>
+    <div class="single-form-max-width pt-3 mx-auto">
+    {% include 'general/subscriber_form.html' %}
+    </div><!--//single-form-max-width-->
+  </div><!--//container-->
+  </section>
+    
+</div><!--//main-wrapper-->
+
+    
+{% endblock %}
+

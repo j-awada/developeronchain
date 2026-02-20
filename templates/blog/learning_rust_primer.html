@@ -1,0 +1,504 @@
+{% extends 'general/base.html' %}
+
+{% load static %}
+
+{% block head_tag %}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="A primer on learning Rust" content="An introduction to Rust" />
+  <meta name="keywords" content="Rust, memory, variables, tuples, structs, enums, options, iterators, borrowing, ownership, traits">
+  <title>A primer on learning Rust</title>
+{% endblock %}
+
+{% block body %}
+
+{% include 'general/side_navbar.html' %}
+
+<div class="main-wrapper">
+      
+  <article class="blog-post px-3 py-5 p-md-5">
+    <div class="container single-col-max-width">
+      <header class="blog-post-header blog-titles">
+        <h2 class="title mb-2">A primer for learning Rust</h2>
+        <div class="meta mb-3"><span class="date"> July 2024</span><span class="time">10 min read</span></div>
+      </header>
+
+      <div class="blog-post-body">
+        <figure class="blog-banner">
+          <img class="img-fluid" src="{% static 'assets/images/learning_rust_primer/learning_rust_primer.png' %}" alt="image">
+        </figure>
+
+        <h2 class="blog-titles" id="top">Content</h2>
+        <ul>
+          <li><a href="#about_rust">About Rust</a></li>
+          <li><a href="#memory_and_var_types">Memory and variable types</a></li>
+          <li><a href="#tuples_structs_enums">Tuples, Structs and Enums</a></li>
+          <li><a href="#options_and_iterators">Option and Iterators</a></li>
+          <li><a href="#borrowing_and_ownership">Borrowing and Ownership</a></li>
+          <li><a href="#traits">Traits</a></li>
+        </ul>
+
+        <h3 class="mt-5 mb-3 blog-titles" id="about_rust">About Rust</h3>
+        <br>
+        <p>
+        Rust has a reputation of being an overly protective programming language. It is a compiled language mostly used in systems programming however recently in other areas among which is web3. Statically typed, which means the types of all variables are declared at compile time. If the type of a variable is not specified, the compiler will work it out and take a guess.
+        </p>
+
+<br>
+<div id="editor1">
+fn main() {
+    let ans:f64 = 2.0;
+    println!("{}", ans);
+}
+</div>
+<br>
+        <p>
+        A Rust program similar to other compiled languages contains a <code>main</code> function and each line of code ends with a semi-colon. Variables in Rust are immutable unless explicitly specified using the <code>mut</code> keyword.
+        </p>
+
+<br>
+<div id="editor2">
+let mut ans:f64 = 2.0;
+</div>
+<br>
+        <a href="#top">back to top</a>
+
+        <h3 class="mt-5 mb-3 blog-titles" id="memory_and_var_types">Memory and variable types</h3>
+        <br>
+        <h5 class="my-3">Variables on a stack</h5>
+        <p>Given variable <strong>A</strong> stored on the stack, when variable <strong>A</strong> gets assigned to another variable <strong>B</strong>, variable <strong>A</strong> will get copied. If variable <strong>A</strong> was stored on the heap, you'll get an error. You can use <code>.clone()</code> for variables stored on heap. Variables stored on stack get copied under the hood because doing so is a cheap transaction.</p>
+        <p>
+        Primitive types are stored on a stack in memory and they are popped off the stack when their existance is no longer needed. A stack is a block in memory where allocation happens in the form of first in last out <strong>(FILO)</strong>. Memory allocation and de-allocation on a stack is faster than that on a heap.
+        </p>
+        <br>
+        <h5 class="my-3">Primitive types</h5>
+        <p>
+        Primitive types can be divided into scalar and compound:
+        </p>
+        <p class="my-3">1. Scalar</p>
+        <ul>
+          <li>Signed integer, referred to as <code>i&lt;size&gt;</code> for example <code>i8</code> or <code>i16</code></li>
+          <li>Unsigned integer, referred to as <code>u&lt;size&gt;</code></li>
+          <li>Floating point, referred to as <code>f&lt;size&gt;</code></li>
+          <li>Char, which is a unicode scalar and is indicated using single quotes <code>''</code> and is 4 bytes in size</li>
+          <li>Bool, which is 1 byte in size and can be <code>true</code> or <code>false</code></li>
+        </ul>
+
+        <p class="my-3">2. Compound</p>
+        <ul>
+          <li><p>Array, for example <code>[1,2,3]</code>. Objects in the array have the same type and its data is collected on a stack</p></li>
+          <li><p>Tuple, for example <code>(1, true)</code> where items can have different types (more on tuples later)</p></li>
+          <li>Slice</li>
+        </ul>
+
+        <p class="my-3"><u>Slice Vs. Array</u></p>
+        <p>
+        The length of an array is known at compile time however the length of a slice is known at run time.
+        </p>
+        <p>
+        An array signature looks like this:
+        </p>
+
+<br>
+<div id="editor3">
+let arr:[i32; 5] = [1,2,3,4,5];
+</div>
+<br>
+
+        <p>
+        where we are defining an array <code>arr</code> with 5 <code>i32</code> items and then initialising the array.
+        </p>
+        <p>
+        A slice signature on the other hand looks like this:
+        </p>
+
+<br>
+<div id="editor4">
+let slice:&[i32] = &arr;
+</div>
+<br>
+
+        <p>
+        The slice is a reference to an array but without copying it. Borrowing is something that we will cover further down.
+        </p>
+        <p>
+        In the code below, we create a function <code>sum</code> outside the main program. <code>sum</code> takes a parameter of type slice having items of type <code>i32</code> and it also returns an <code>i32</code> value.
+        </p>
+        <p>
+        In the <code>main</code> function, we define an array <code>arr</code> and the variable <code>res</code> which contains the sum of all the items of the sliced array. The <code>println!</code> macro will print out our variable.
+        </p>
+
+<br>
+<div id="editor5">
+fn sum(vals: &[i32]) -> i32 {
+  let mut res = 0;
+  for i in 0..vals.len() {
+    res += vals[i];
+  }
+  res
+}
+
+// the main function
+fn main() {
+  let arr = [1, 2, 3, 4];
+  let res = sum(&arr);
+  println!("sum {}", res);
+}
+</div>
+<br>
+        <br>
+        <h5 class="my-3">Non-primitive types</h5>
+        <ul>
+          <li><p>Vector. <code>Vec&lt;T&gt;</code> is part of the <code>std</code> library. It is a resizable array and its size is not known at compile time. It behaves like a slice but unlike a slice, you can append more values to it. A vector is dynamically allocated which means it is growable and is stored on a heap.</p>
+
+<br>
+<div id="editor6">
+fn main() {
+    // an array
+    let arr = [1, 2, 3, 4, 5];
+
+    // a slice
+    let s = &arr[1..3];
+
+    // a vector
+    let mut v = Vec::new();
+
+    // add 1 to vector
+    v.push(1);
+
+    // copy items from slice to vector
+    v.extend_from_slice(s);
+
+    // v is [1, 2, 3]
+    println!("v is {:?}", v);
+}
+</div>
+<br>
+
+          </li>
+          <li><p>String. It has 2 types. <code>String</code> which is stored as a vector and <code>&str</code> which is stored as a slice. The latter is a string slice. A slice in this case is a reference to part of a string.</p>
+
+<br>
+<div id="editor7">
+fn main() {
+    // define a string
+    let s = String::from("Hello world");
+
+    // string slice
+    let s_lice = &s[..5];
+
+    // Hello!
+    println!("{}", s_lice);
+}
+</div>
+<br>
+
+          </li>
+        </ul>
+        <a href="#top">back to top</a>
+
+
+        <h3 class="mt-5 mb-3 blog-titles" id="tuples_structs_enums">Tuples, Structs and Enums</h3>
+        <br>
+        <h5 class="my-3">Tuples</h5>
+        <p>
+        A tuple is useful for functions returning objects of different types. The tuple is fixed in size and elements can't be added or removed.
+        </p>
+        <p>
+        Indexing a tuple looks something like this:
+        </p>
+<br>
+<div id="editor8">
+let tup:(char, i32, bool) = ('A', 7, true);
+tup.0
+tup.1
+</div>
+<br>
+        <br>
+        <h5 class="my-3">Structs</h5>
+        <p>
+        A struct allows you to create custom types. By using structs, you can keep associated pieces of data connected to each other. You can also define functions that are associated with your type as well as methods that specify a behavior that your struct has in the <code>impl</code> block of the struct.
+        </p>
+        <p>
+        The name of the struct is capitalized and the struct itself is usually defined outside the <code>main</code> function.
+        </p>
+        <p>
+        Structs have 2 types:
+        </p>
+          <ul>
+            <li>
+              <p>Classic struct. This one is defined with named fields. A semicolon <code>;</code> is not used at the end of a classic struct definition.</p>
+
+<br>
+<div id="editor9">
+struct Student {name: String, grade: u8}
+</div>
+<br>
+
+            </li>
+            <li>
+              <p>Tuple struct. The difference between a tuple struct and a classic struct is that the tuple struct fields are not named.</p>
+
+<br>
+<div id="editor10">
+struct Grades (u32, u32, u32);
+</div>
+<br>
+              <p>
+              <mark>The difference between a tuple struct and a tuple is that the tuple struct has a custom type while a regular tuple doesn't.</mark>
+              </p>
+            </li>
+          </ul>
+
+        <br>
+        <h5 class="my-3">Printing a struct</h5>
+        <p>
+        The <code>println!</code> macro used with <code>{}</code> uses formatting known as <code>std::fmt::Display</code>. Primitive types implement the Display trait by default but structs don't. That's because printing a struct can have many possible displays.
+        </p>
+        <p>
+        <code>println!</code> used with <code>{:?}</code> uses the Debug format useful for developers. However, the Debug format is not implemented by default for structs. To make use of it, place the <code>#[derive (Debug)]</code> attribute above your struct definition.
+        </p>
+        <p>
+        For a visually better struct display on stdout, you can use <code>{:#?}</code> with <code>println!</code>.
+        </p>
+
+<br>
+<div id="editor11">
+#[derive (Debug)]
+struct Grades (u32, u32, u32);
+
+fn main() {
+    let int = 3;
+    let arr:[i32; 2] = [1, 2];
+    let my_struct = Grades(32, 34, 36);
+
+    println!("int is {}", int);
+    println!("arr is {:?}", arr);
+    println!("my_struct is {:#?}", my_struct);
+}
+</div>
+<br>
+
+        <br>
+        <h5 class="my-3">The struct's <code>impl</code> block</h5>
+        <p>
+        This is the implementation block. The struct can have more than 1 <code>impl</code> block. The <code>impl</code> block is used to define methods and functions within the context of a struct.
+        </p>
+
+        <p class="my-3"><u>Associated function Vs. Struct method</u></p>
+
+        <p>An associated function takes arguments/parameters. A struct method takes <code>&self</code> as the argument. An associated function is called using <code>new()</code> for example, <code>Rectangle::new()</code> where Rectangle is the Struct type while the Struct method is called as follows <code>rect.area()</code> where rect is a struct instance.</p>
+
+        <p><mark>The method is called on an instance and the associated function is called on the type.</mark></p>
+        <p>
+        Methods look a lot like functions however their first argument is always <code>self</code> similar to what exists in other popular programming languages. It follows that <code>self</code> represents an instance of the struct.
+        </p>
+        <p>
+        The functions defined within the <code>impl</code> block are called associated functions. They don't take <code>self</code> as their first argument. Associated functions are mostly used as struct constructors.
+        </p>
+
+<br>
+<div id="editor12">
+// define a struct
+struct Employee {
+    name: String,
+    age: i32,
+}
+
+// write the impl block
+impl Employee {
+
+    // define a constructor (associated function)
+    fn new_one(name: String, age: i32) -> Employee {
+        Employee {name: name, age: age}
+    }
+
+    // define a method
+    fn get_name(&self) -> String {
+        self.name.clone()
+    }
+
+    // another method
+    fn get_age(&self) -> i32 {
+        self.age
+    }
+}
+
+fn main() {
+    // initialise an Employee variable
+    let employee = Employee::new_one("Alex".to_string(), 40);
+
+    // print things out
+    println!("{} is {} years old", employee.get_name(), employee.get_age());
+}
+</div>
+<br>
+        <br>
+        <h5 class="my-3">Enums</h5>
+        <p>Enumerations (or Enums) are a data struct that allow you to define a type by enumerating its possible variants.</p>
+        <p>
+        Those are used to define several types that are related to each other and will be grouped together in the same enum type. The most common example of enums is an IP enum with types v4 and v6 IP addresses.
+        </p>
+        <p>
+        You can use structs with enums. For example the type of an enum variant IPv4 can be a predefined struct type.
+        </p>
+        <p>
+        There is a good example of this in the Rust documentation <a target="_blank" href="https://doc.rust-lang.org/book/ch06-01-defining-an-enum.html">Enums example</a>.
+        </p>
+
+        <a href="#top">back to top</a>
+
+        <h3 class="mt-5 mb-3 blog-titles" id="options_and_iterators">Option and Iterators</h3>
+
+        <br>
+
+        <h5 class="my-3">Option</h5>
+        <p>There's another type to learn and that's Option. It is used to catch errors. Similar to methods in other languages where you try to <code>.get()</code> an item from an object and if this item does not exist, <code>None</code> is returned instead of the code crashing.
+        </p>
+
+        <p>
+        You can see Option when you use the <strong>get</strong> method with a slice <code>slice.get(12)</code>. The get method can catch an out-of-bound error when the slice does not have an item at index 12. And so it will return None. However if the slice does have an item at index 12, it will return a value wrapped in Some.
+        </p>
+        <p>
+        <mark>So an Option type is either <u>Some(type)</u> or <u>None</u>.</mark>
+        </p>
+        <p>
+        There are some methods that go along with the Option type, for example <code>.is_some()</code> and <code>.is_none()</code> that return booleans. And <code>.unwrap()</code> which will return the target value for us without the Some().
+        </p>
+        <p>
+        So, Option can contain a value or nothing at all. The value can be any type hence <code>Option&lt;&[i32]&gt;</code>.
+        </p>
+
+<br>
+<div id="editor13">
+// Define a function that prints if the variable passed is true or false
+fn on_off(btn: Option&ltbool&gt) {
+    match btn {
+        Some(_) => println!("The button is ON"),
+        None => println!("The button is OFF"),
+    }
+}
+
+fn main() {
+    let btn_1: Option&ltbool&gt = Some(true);
+    let btn_2: Option&ltbool&gt = None;
+    on_off(btn_1);
+    on_off(btn_2);
+}
+</div>
+<br>
+        <h5 class="my-3">Iterators</h5>
+        <p>Iterators are common in programming languages, and they are objects that generate values using the <code>next</code> method. Iterators in Rust return an Option.</p>
+
+<br>
+<div id="editor14">
+fn main() {
+    let mut iter = 0..3;
+    assert_eq!(iter.next(), Some(0));
+}
+</div>
+<br>
+
+        <p><code>.next()</code> will return a Some as long as there's a value left, otherwise it will return None.</p>
+        <a href="#top">back to top</a>
+
+        <h3 class="mt-5 mb-3 blog-titles" id="borrowing_and_ownership">Borrowing and Ownership</h3>
+        <p>
+          Some languages implement a garbage collector while others give this responsibility to the programmer. Rust takes another approach where memory is automatically reclaimed once the variable it belongs to goes out of scope. This is called <b>Ownership</b>.
+          <br>
+          <br>
+          A variable is owned by the scope it exists in, if the scope ends, the variable is dropped i.e. memory is freed. So if a variable outside a function is used as an argument for that function, when the function exits, the variable will be dropped because the scope of the new owner (the function) ended.
+          <br>
+          <br>
+          It's worth mentioning that <code>println!</code> does not take ownership of the object it is printing but uses a reference.
+          <br>
+          <br>
+          You can reassign a new variable to the value of that function variable outside the function and have it returned if you still need to use it outside the function. But what is usually applied instead is <b>Borrowing</b>.
+          <br>
+          <br>
+          You can borrow the variable by using a reference to it as a function argument. This way, ownership of the variable is not transferred to the function and the variable still exists in its scope outside the function.
+          <br>
+          <br>
+          Borrowing has some rules that are useful to know such as:
+
+          <ul>
+            <li>
+          an object can have many immutable references to it <u>or</u> exactly 1 mutable reference but not both.
+            </li>
+          </ul>
+        </p>
+        <a href="#top">back to top</a>
+
+        <h3 class="mt-5 mb-3 blog-titles" id="traits">Traits</h3>
+        <p>
+          Rust defines a trait called <b>Copy</b> that determines that a type may be copied when being moved.
+          <br>
+          Primitive types are mostly Copy eg. <code>i32</code>, <code>f64</code>, <code>char</code>, <code>bool</code>, etc. However types like Vector and String are not Copy. This might be useful to know for performance purposes.
+        </p>
+        <p>
+          In the example code below, we'll create a custom trait and implement it for 2 different structs.
+        </p>
+
+<br>
+<div id="editor15">
+struct Sheep;
+struct Cow;
+
+trait Animal {
+    fn sound(&self) -> String;
+}
+
+impl Animal for Sheep {
+    fn sound(&self) -> String {
+        String::from("Maah")
+    }
+}
+
+impl Animal for Cow {
+    fn sound(&self) -> String {
+        String::from("Mooh")
+    }
+}
+</div>
+<br>
+
+        <h5 class="my-3">Derive</h5>
+
+        <p>
+          The <code>derive</code> macro is used to provide basic implementations of certain traits. In the example below we give the custom struct <i>MyNumb</i> 2 traits <code>PartialEq</code> and <code>PartialOrd</code> from the standard library. This will enable float comparison operations. 
+        </p>
+
+<br>
+<div id="editor16">
+#[derive(PartialEq, PartialOrd)]
+struct MyNumb(f64);
+
+fn main() {
+    let _n1: MyNumb = MyNumb(10.0);
+    let _n2: MyNumb = MyNumb(11.0);
+    println!("{:?}", _n1 < _n2);
+}
+</div>
+<br>
+
+        <a href="#top">back to top</a>
+ 
+      </div>
+    </div><!--//container-->
+  </article>
+      
+  <section class="cta-section theme-bg-light py-5">
+  <div class="container text-center">
+    <h2 class="heading">Another Rust blog</h2>
+    <div class="intro">(with the occasional DevOps article) 😬</div>
+    <div class="single-form-max-width pt-3 mx-auto">
+    {% include 'general/subscriber_form.html' %}
+    </div><!--//single-form-max-width-->
+  </div><!--//container-->
+  </section>
+    
+</div><!--//main-wrapper-->
+
+    
+{% endblock %}
+

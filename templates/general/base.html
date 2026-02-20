@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en"> 
+
+{% load static %}
+
+  <head>
+    {% block head_tag %} {% endblock %}
+      <!-- Favicon-->
+      <link rel="icon" type="image/x-icon" href="{% static 'assets/images/favicon.ico' %}">
+
+      {% block css %}
+    <!-- FontAwesome JS-->
+    <script type="text/javascript" src="{% static 'assets/fontawesome/js/all.min.js' %}"></script>
+
+    <!-- other -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.14.0/ace.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.14.0/ace.min.js"></script>
+    
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" type="text/css" href="{% static 'assets/css/theme-1.css' %}">
+      {% endblock %}
+
+  </head>
+
+	<body>
+
+		{% block body %} {% endblock %}
+
+    <!-- Javascript -->
+    <script type="text/javascript" src="{% static 'assets/plugins/popper.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+
+    <script type="text/javascript" src="{% static 'assets/js/blog.js' %}"></script>
+
+<script>
+  var editor1 = ace.edit("editor1");
+  editor1.setTheme("ace/theme/tomorrow_night");
+  editor1.session.setMode("ace/mode/rust");
+  document.getElementById('editor1').style.fontSize='14px';
+  document.getElementById('editor1').style.fontFamily='Courier,monospace';
+  editor1.setReadOnly(true);
+  editor1.setOptions({
+    maxLines: Infinity
+  });
+
+  var editor2 = ace.edit("editor2");
+  editor2.setTheme("ace/theme/tomorrow_night");
+  editor2.session.setMode("ace/mode/rust");
+  document.getElementById('editor2').style.fontSize='14px';
+  document.getElementById('editor2').style.fontFamily='Courier,monospace';
+  editor2.setReadOnly(true);
+  editor2.setOptions({
+    maxLines: Infinity
+  });
+
+  var editor3 = ace.edit("editor3");
+  editor3.setTheme("ace/theme/tomorrow_night");
+  editor3.session.setMode("ace/mode/rust");
+  document.getElementById('editor3').style.fontSize='14px';
+  document.getElementById('editor3').style.fontFamily='Courier,monospace';
+  editor3.setReadOnly(true);
+  editor3.setOptions({
+    maxLines: Infinity
+  });
+
+  var editor4 = ace.edit("editor4");
+  editor4.setTheme("ace/theme/tomorrow_night");
+  editor4.session.setMode("ace/mode/rust");
+  document.getElementById('editor4').style.fontSize='14px';
+  document.getElementById('editor4').style.fontFamily='Courier,monospace';
+  editor4.setReadOnly(true);
+  editor4.setOptions({
+    maxLines: Infinity
+  });
+
+  var editor5 = ace.edit("editor5");
+  editor5.setTheme("ace/theme/tomorrow_night");
+  editor5.session.setMode("ace/mode/rust");
+  document.getElementById('editor5').style.fontSize='14px';
+  document.getElementById('editor5').style.fontFamily='Courier,monospace';
+  editor5.setReadOnly(true);
+  editor5.setOptions({
+    maxLines: Infinity
+  });
+
+  var editor6 = ace.edit("editor6");
+  editor6.setTheme("ace/theme/tomorrow_night");
+  editor6.session.setMode("ace/mode/rust");
+  document.getElementById('editor6').style.fontSize='14px';
+  document.getElementById('editor6').style.fontFamily='Courier,monospace';
+  editor6.setReadOnly(true);
+  editor6.setOptions({
+    maxLines: Infinity
+  });
+
+  var editor7 = ace.edit("editor7");
+  editor7.setTheme("ace/theme/tomorrow_night");
+  editor7.session.setMode("ace/mode/rust");
+  document.getElementById('editor7').style.fontSize='14px';
+  document.getElementById('editor7').style.fontFamily='Courier,monospace';
+  editor7.setReadOnly(true);
+  editor7.setOptions({
+    maxLines: Infinity
+  });
+
+  var editor8 = ace.edit("editor8");
+  editor8.setTheme("ace/theme/tomorrow_night");
+  editor8.session.setMode("ace/mode/rust");
+  document.getElementById('editor8').style.fontSize='14px';
+  document.getElementById('editor8').style.fontFamily='Courier,monospace';
+  editor8.setReadOnly(true);
+  editor8.setOptions({
+    maxLines: Infinity
+  });
+
+  var editor9 = ace.edit("editor9");
+  editor9.setTheme("ace/theme/tomorrow_night");
+  editor9.session.setMode("ace/mode/rust");
+  document.getElementById('editor9').style.fontSize='14px';
+  document.getElementById('editor9').style.fontFamily='Courier,monospace';
+  editor9.setReadOnly(true);
+  editor9.setOptions({
+    maxLines: Infinity
+  });
+
+  var editor10 = ace.edit("editor10");
+  editor10.setTheme("ace/theme/tomorrow_night");
+  editor10.session.setMode("ace/mode/rust");
+  document.getElementById('editor10').style.fontSize='14px';
+  document.getElementById('editor10').style.fontFamily='Courier,monospace';
+  editor10.setReadOnly(true);
+  editor10.setOptions({
+    maxLines: Infinity
+  });
+
+  var editor11 = ace.edit("editor11");
+  editor11.setTheme("ace/theme/tomorrow_night");
+  editor11.session.setMode("ace/mode/rust");
+  document.getElementById('editor11').style.fontSize='14px';
+  document.getElementById('editor11').style.fontFamily='Courier,monospace';
+  editor11.setReadOnly(true);
+  editor11.setOptions({
+    maxLines: Infinity
+  });
+
+  var editor12 = ace.edit("editor12");
+  editor12.setTheme("ace/theme/tomorrow_night");
+  editor12.session.setMode("ace/mode/rust");
+  document.getElementById('editor12').style.fontSize='14px';
+  document.getElementById('editor12').style.fontFamily='Courier,monospace';
+  editor12.setReadOnly(true);
+  editor12.setOptions({
+    maxLines: Infinity
+  });
+
+  var editor13 = ace.edit("editor13");
+  editor13.setTheme("ace/theme/tomorrow_night");
+  editor13.session.setMode("ace/mode/rust");
+  document.getElementById('editor13').style.fontSize='14px';
+  document.getElementById('editor13').style.fontFamily='Courier,monospace';
+  editor13.setReadOnly(true);
+  editor13.setOptions({
+    maxLines: Infinity
+  });
+
+  var editor14 = ace.edit("editor14");
+  editor14.setTheme("ace/theme/tomorrow_night");
+  editor14.session.setMode("ace/mode/rust");
+  document.getElementById('editor14').style.fontSize='14px';
+  document.getElementById('editor14').style.fontFamily='Courier,monospace';
+  editor14.setReadOnly(true);
+  editor14.setOptions({
+    maxLines: Infinity
+  });
+
+  var editor15 = ace.edit("editor15");
+  editor15.setTheme("ace/theme/tomorrow_night");
+  editor15.session.setMode("ace/mode/rust");
+  document.getElementById('editor15').style.fontSize='14px';
+  document.getElementById('editor15').style.fontFamily='Courier,monospace';
+  editor15.setReadOnly(true);
+  editor15.setOptions({
+    maxLines: Infinity
+  });
+
+  var editor16 = ace.edit("editor16");
+  editor16.setTheme("ace/theme/tomorrow_night");
+  editor16.session.setMode("ace/mode/rust");
+  document.getElementById('editor16').style.fontSize='14px';
+  document.getElementById('editor16').style.fontFamily='Courier,monospace';
+  editor16.setReadOnly(true);
+  editor16.setOptions({
+    maxLines: Infinity
+  });
+
+</script>
+
+	</body>
+
+</html>

@@ -1,0 +1,99 @@
+{% extends 'general/base.html' %}
+
+{% load static %}
+
+{% block head_tag %}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="Programming languages, their rise and fall" content="Programming languages, their rise and fall" />
+  <meta name="keywords" content="programming languages, Rust, Python, Perl, C, C++, Golang">
+  <title>Programming languages, their rise and fall</title>
+{% endblock %}
+
+{% block body %}
+
+{% include 'general/side_navbar.html' %}
+
+<div class="main-wrapper">
+      
+  <article class="blog-post px-3 py-5 p-md-5">
+    <div class="container single-col-max-width">
+      <header class="blog-post-header">
+        <h2 class="title mb-2">Programming languages: their rise and fall</h2>
+        <div class="meta mb-3"><span class="date">August 2024</span><span class="time">2 min read</span></div>
+      </header>
+
+      <div class="blog-post-body">
+        <figure class="blog-banner">
+          <img class="img-fluid" src="{% static 'assets/images/programming_languages/programming_languages.png' %}" alt="image">
+        </figure>
+
+        <p>
+          Programming languages are created to solve problems. Every now and then, a programmer encounters a problem and they decide that solving it with the existing languages is not good enough.
+        </p>
+
+        <p>
+          So they write a new programming language.
+        </p>
+
+        <p>
+          Larry Wall wrote Perl because he was fascinated with linguistics and designed Perl with that in mind.
+        </p>
+
+        <p>
+          Guido wrote Python because there were no languages at the time with simple syntax, something similar to pseudocode.
+        </p>
+
+        <p>
+          Bjarne Stroustrup wrote C++ as the OOP language version of C.
+        </p>
+
+        <p>
+          Google created Golang because the language landscape was not sufficient enough for their needs.
+        </p>
+
+        <p>
+          Graydon created <a href="https://www.developeronchain.com/learning_rust_primer">Rust</a> due to the common issue of memory leaks occuring in C languages. Rust solves this problem effectively while maintaining its speed.
+        </p>
+
+        <p><mark>How do you decide which language to use?</mark></p>
+
+        <p>
+          Usually depending on the task. There is almost always a trade-off as to which language you choose.
+        </p>
+
+        <p>
+          Python is easier to code with than Rust but Rust is faster.
+        </p>
+
+        <p>
+          Some languages are naturally dying out and that makes our decision easier.
+        </p>
+
+        <p>
+          As hardware improves and new use cases and challenges emerge, the landscape will keep updating itself.
+        </p>
+
+        <p>
+          A good rule of thumb for developers is to not get too attached to any language!
+        </p>
+ 
+      </div>
+    </div><!--//container-->
+  </article>
+      
+  <section class="cta-section theme-bg-light py-5">
+  <div class="container text-center">
+    <h2 class="heading">Another Rust blog</h2>
+    <div class="intro">(with the occasional DevOps article) 😬</div>
+    <div class="single-form-max-width pt-3 mx-auto">
+    {% include 'general/subscriber_form.html' %}
+    </div><!--//single-form-max-width-->
+  </div><!--//container-->
+  </section>
+    
+</div><!--//main-wrapper-->
+
+    
+{% endblock %}
+

@@ -1,0 +1,142 @@
+{% extends 'general/base.html' %}
+
+{% load static %}
+
+{% block head_tag %}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="Lifetimes in Rust" content="Lifetimes in Rust" />
+  <meta name="keywords" content="Rust, advanced, lifetimes, variables">
+  <title>Lifetimes in Rust</title>
+{% endblock %}
+
+{% block body %}
+
+{% include 'general/side_navbar.html' %}
+
+<div class="main-wrapper">
+      
+  <article class="blog-post px-3 py-5 p-md-5">
+    <div class="container single-col-max-width">
+      <header class="blog-post-header">
+        <h2 class="title mb-2">Lifetimes in Rust</h2>
+        <div class="meta mb-3"><span class="date">August 2024</span><span class="time">3 min read</span></div>
+      </header>
+
+      <div class="blog-post-body">
+        <figure class="blog-banner">
+          <img class="img-fluid" src="{% static 'assets/images/rust_lifetimes/rust_lifetimes.png' %}" alt="image">
+        </figure>
+
+        <h3 class="mt-5 mb-3">All variables belong to a scope</h3>
+        <p>Let's create a variable <code>a</code> in the main scope and variable <code>b</code> in a local scope.</p>
+
+<br>
+<div id="editor1">
+fn main() {## start of main scope
+  let a = 1;
+  {## start of local scope
+    let b = 2;
+  }
+}
+</div>
+<br>
+
+        <p>We'll then assign variable <code>a</code> to <code>b</code> and add a print statement in the main scope.</p>
+
+<br>
+<div id="editor2">
+fn main() {
+  let a = 1;
+  {
+    let b = 2;
+    a = &b;
+  }
+  println!("{}", a);
+}
+## does not compile
+</div>
+<br>
+
+        <p>This program will not compile. That is because variable <code>a</code> is referencing a variable <code>b</code> that does not live outside its scope.</p>
+        <p><code>b</code>'s lifetime only lasts within a temporary scope. This is Rust's mechanism for avoiding dangling pointers and the reason it is considered a safe language.</p>
+
+        <h3 class="mt-5 mb-3">A longer-lasting variable</h3>
+        <p>What if we want a variable to last longer than its existing scope.</p>
+        <p>Here is where lifetimes come into play. Lifetimes allow a reference to a variable to remain valid as long as needed.</p>
+        <p>In the code snippet below, the program does not compile.</p>
+
+
+<br>
+<div id="editor3">
+fn func(n: &i32, _m: &i32) -> &i32 {
+  n
+}
+
+fn main() {
+  let x;
+  let z = 1;
+  {
+    let y = 3;
+    x = func(&z, &y);
+  }
+  println!("{}", x);
+}
+## does not compile
+</div>
+<br>
+
+        <p>The reason being as before, variable <code>x</code> is making use of a short-lived variable <code>y</code>.</p>
+        <p>Let's introduce lifetimes to the code to make it compile.</p>
+
+<br>
+<div id="editor4">
+fn func<'a, 'b>(n: &'a i32, _m: &'b i32) -> &'a i32 {
+  n
+}
+
+fn main() {
+  let x;
+  let z = 1;
+  {
+    let y = 3;
+    x = func(&z, &y);
+  }
+  println!("{}", x);
+}
+</div>
+<br>
+
+        <p>Here we've declared 2 lifetimes <b>a</b> and <b>b</b> using angle brackets. We've asked the compiler to allow a lifetime <b>a</b> to the returned value of the function <code>func</code>.</p>
+        <p>Lifetime <b>a</b> is equivalent to the lifetime of variable <code>z</code> found in the main scope. The program now compiles successfully.</p>
+
+        <p>If we instead give the return value of <code>func</code> lifetime <b>b</b>, the program will not compile because lifetime <b>b</b> is equivalent to the local scope where <code>y</code> lives.</p>
+
+        <br>
+        <hr>
+        <h5 class="my-3">Summary:</h5>
+        <ul>
+          <li>Variables created within a scope <code>{}</code> live as long as that scope lasts.</li>
+          <li>A reference to a variable is allowed so long as that variable exists. Rust's way of avoiding dangling pointers.</li>
+          <li>Lifetimes allow a reference to a variable to remain valid for as long as needed.</li>
+        </ul>
+ 
+      </div>
+    </div><!--//container-->
+  </article>
+      
+  <section class="cta-section theme-bg-light py-5">
+  <div class="container text-center">
+    <h2 class="heading">Another Rust blog</h2>
+    <div class="intro">(with the occasional DevOps article) 😬</div>
+    <div class="single-form-max-width pt-3 mx-auto">
+    {% include 'general/subscriber_form.html' %}
+    </div><!--//single-form-max-width-->
+  </div><!--//container-->
+  </section>
+    
+</div><!--//main-wrapper-->
+
+    
+{% endblock %}
+

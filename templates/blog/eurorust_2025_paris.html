@@ -1,0 +1,357 @@
+{% extends 'general/base.html' %}
+
+{% load static %}
+
+{% block head_tag %}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="EuroRust 2025 in Paris" content="Attending EuroRust 2025 in Paris" />
+  <meta name="keywords" content="EuroRust, 2025, France, Paris, Europe, Rust, Conference">
+  <title>EuroRust 2025 in Paris</title>
+  
+  <style>
+    .day-section .collapse-toggle-btn {
+      border-radius: 20px;
+      transition: all 0.3s ease;
+      border: 2px solid #636a6f;
+      color: #636a6f;
+      background: white;
+      min-width: 100px;
+    }
+    
+    .day-section .collapse-toggle-btn:hover {
+      background: #636a6f;
+      color: white;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(99, 106, 111, 0.3);
+    }
+    
+    .day-section .collapse-toggle-btn:focus {
+      box-shadow: 0 0 0 3px rgba(99, 106, 111, 0.2) !important;
+      outline: none !important;
+    }
+    
+    .day-section .collapse-icon {
+      transition: transform 0.3s ease;
+      font-size: 0.75rem;
+    }
+    
+    .day-section .btn[aria-expanded="false"] .collapse-icon {
+      transform: rotate(0deg);
+    }
+    
+    .day-section .btn[aria-expanded="true"] .collapse-icon {
+      transform: rotate(45deg);
+    }
+    
+    .day-section .btn[aria-expanded="false"] .btn-text::after {
+      content: "Expand";
+    }
+    
+    .day-section .btn[aria-expanded="true"] .btn-text::after {
+      content: "Collapse";
+    }
+    
+    .day-section .btn-text {
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    
+    .day-section .btn-text::after {
+      content: "Expand";
+    }
+  </style>
+{% endblock %}
+
+{% block body %}
+
+{% include 'general/side_navbar.html' %}
+
+<div class="main-wrapper">
+      
+  <article class="blog-post px-3 py-5 p-md-5">
+    <div class="container single-col-max-width">
+      <header class="blog-post-header">
+        <h2 class="title mb-2">Attending EuroRust 2025 in Paris</h2>
+        <div class="meta mb-3"><span class="date">October 2025</span><span class="time">10 min read</span></div>
+      </header>
+
+      <div class="blog-post-body">
+        <figure class="blog-banner">
+          <img class="img-fluid" src="{% static 'assets/images/eurorust_2025_paris/main_stage_compressed.png' %}" alt="eurorust 2025">
+        </figure>
+
+        <p>Rust's first stable release was in 2015. This year 2025, Rust turns 10 years old. What better way to celebrate this than by attending a Rust conference. As I happen to be located in Sweden at the moment, it made sense to attend this year's EuroRust 2025 in Paris, France.</p>
+
+        <p>But why France why :( do you make it hard for me to truely love you! Why is there no lait végétalien at the conference. Yes I had to drink my coffee very black. But ok, I still like France.</p>
+
+        <br>
+        
+        <!-- Collapsible Day 1 Section -->
+        <div class="day-section">
+          <div class="d-flex align-items-center mb-2">
+            <h2 class="title mb-0 me-3">Day 1</h2>
+            <button class="btn btn-outline-secondary btn-sm collapse-toggle-btn" 
+                    type="button" 
+                    data-bs-toggle="collapse" 
+                    data-bs-target="#day1Content" 
+                    aria-expanded="false" 
+                    aria-controls="day1Content"
+                    title="Click to expand Day 1 content">
+              <i class="fas fa-plus collapse-icon"></i>
+              <span class="btn-text ms-1"></span>
+            </button>
+          </div>
+          
+          <div class="collapse" id="day1Content">
+            <div class="day-content">
+              <h4 class="mt-5 mb-3">"Are we desktop yet?" by Victoria Brekenfeld</h4>
+
+        <p>This talk was by an engineer working at System 76. I bought my first System 76 laptop in 2021, the reason being that I wanted to use a different OS than Mac and Windows. This year however, I went back to Apple and bought a Macbook air. But only because I miss a top quality hardware experience for example the track pad 😒. I already gave this unsolicited feedback to the speaker of this talk. System 76 focusses more on the Software side of things as I am assuming it might be difficult to compete with a company like Apple in terms of hardware design.</p>
+
+        <p>So the speaker has been working on Cosmic OS, a Rust desktop environment. Cosmic is a desktop environment for Linux, it has a tiling system, it is open-source and is cross-platform. What I took away from her talk is that 3 years ago, the Rust landscape for building GUI was less mature than today. At the time, there were native Rust toolkits like EGUI, Slint and Iced, at Cosmic they decided to go with Iced rather relying on GUI wrappers like (GTK, Qt, Flutter, etc). The main reason being that making use of wrappers did not match the fast-paced development of Cosmic as PRs were taking a long time to get merged.</p>
+
+        <p>They used Iced because it was highly modular, it is a reactive toolkit, it is async-first, completely Rust-native and is cross-platform. This however resulted in some challenges like the fact that Rust is not widely used yet and so there was limited number of widgets. They therefore had to create things like <code>libcosmic</code> and <code>cosmic-text</code> for text rendering.</p>
+
+        <h4 class="mt-5 mb-3">"Exemplery by design" by Jacob Pratt</h4>
+
+        <p>I accidentally missed the begining of this talk even though I was looking forward to it.</p>
+
+        <p>The <a target="_blank" href="https://jhpratt.dev/">speaker</a> is an experienced crate developer that gave valuable insights on best practices for writing idiomatic Rust code. His talk was divided into sections and here is what I took away from each.</p>
+
+        <strong>Style and design</strong>
+
+        <ul>
+          <li>use <code>#[cfg_attr]</code> or the <code>cfg_select!</code> macro to make Rust portable and configurable</li>
+          <li>if you have multiple crates => use workspaces (they allow faster compilation and you can view a crate graph)</li>
+          <li>use <code>rust-analyzer</code> with your editor</li>
+          <li>set up VSCode-specific configuration for Rust files</li>
+          <li>use <code>clippy</code> for linting</li>
+          <li>use <code>enum</code> within <code>struct</code> (he regrets not using this more often)</li>
+          <li>use the <code>#[non_exhaustive]</code> attribute which indicates that more fields may be added in the future</li>
+          <li>use a builder method/builder pattern. He mentioned that there is a new feature atm in the nightly version of Rust that allows setting default values to fields in a <code>struct</code></li>
+          <li>learn the difference between operations like <code>+</code>, <code>format!</code>, <code>push_str</code> and <code>println!</code> for string types</li>
+        </ul>
+
+        <strong>Error handling</strong>
+
+        <ul>
+          <li>use the <code>thiserror</code> library for error handeling</li>
+          <li>implement <code>From</code> for error conversions with <code>?</code></li>
+        </ul>
+
+        <strong>Testing</strong>
+
+        <ul>
+          <li>integration tests usually sit in a separate folder than the code you are testing (unlike unit tests)</li>
+          <li>use the <code>quickcheck</code> crate for property testing</li>
+          <li>catch undefined behaviour using the <code>miri</code> crate</li>
+          <li>implement code coverage using <code>cargo-llvm-cov</code></li>
+        </ul>
+
+        <strong>Maintenance</strong>
+
+        <ul>
+          <li>to keep dependencies up-to-date you can use cargo <code>update</code> and <code>upgrade</code>, but know that upgrade might include breaking changes</li>
+          <li>Rust has rich documentation, make use of it</li>
+          <li>make use of changelogs</li>
+          <li>in your CI pipeline, make use of <code>clippy</code> and <code>rust-format</code></li>
+        </ul>
+
+        <strong>Licencing</strong>
+
+        <ul>
+          <li>check out those 2 crates: <code>cargo-deny</code> and <code>cargo-semver-checks</code> for semantic versioning</li>
+          <li>for benchmarking and performace use the <code>criterion</code> and <code>flamegraph</code> crates</li>
+        </ul>
+
+        <h4 class="mt-5 mb-3">"From <i>any</i> to <i>thiserror</i>" by Leo Kettmeir</h4>
+
+        <p>In this talk, the speaker shared some wisdom from his time working at Deno. Initially the code base he was working on was full of handwritten errors using a catchall style. That however was not practical and needed improvement. He then rewrote everything within half a year to use a more concrete error type with the <code>thiserror</code> crate.</p>
+
+        <h4 class="mt-5 mb-3">"Rust meets Solana" workshop led by Jonas Hahn</h4>
+
+        <p>It is always nice to see a Solana booth at Rust conferences. There was one at RustConf 2024 in Montréal and there was one this year at EuroRust 2025. Interestingly, there was also a fish at the Solana booth this year.</p>
+        
+        <p>The workshop lead mentioned some notable projects running on blockchain technology such as:</p>
+
+        <ul>
+          <li>Helium (telecom)</li>
+          <li>Roam (telecom)</li>
+          <li>NET (telecom)</li>
+          <li>Hivemapper (maps)</li>
+          <li>Geodnet (precise positoning)</li>
+        </ul>
+
+        <p>During the workshop, we had to send a transaction to the Solana dev cluster to get the fish that was there to say something. This was hacked together by the workshop lead using a Raspberry pi and this GitHub <a target="_blank" href="https://github.com/Woody4618/fish-rust">repo</a>.</p>
+
+
+        <h4 class="mt-5 mb-3">"Humans in the Rust ecosystem" by Rohit Dandamudi</h4>
+
+        <p>In this talk, the speaker went through analysis he had done on the Rust's corhort of contributors worldwide. He scraped Git commit history from 2022 to 2023 from the Rust, Rust Analyzer and Cargo Git repositories targeting commit authors and PR reviewers. He then removed and filtered out any noise such as bots and extracted locations from GitHub profiles. The speaker mentioned that this was less than ideal as location does not represent nationality. He then built a social graph from this data about the community structure and patterns.</p>
+
+        <p>Some results included:</p>
+
+        <ul>
+          <li>The Rust project is mostly being built in USA, Germany, France and UK</li>
+          <li>Cargo is being built in USA and Taiwan</li>
+          <li>The Rust analyzer is being built in Germany, Romani and Iran</li>
+        </ul>
+
+        <p>He also mentioned that men are disproportionately building all 3 projects and that the most influential group of contributors belong to mostly 1 ethnicity and gender.</p>
+
+        <p>These findings are not surprising. Whilst I was at EuroRust this year, I think I saw 2 other women amongst over a 100 men. There was also a number of speakers from the trans community and they are part of the core team for the Rust compiler.</p>
+
+        <p>The Rust community is heavily skewed towards 1 demography but this is not only the case for Rust, it is also the case for the software development domain as a whole.</p>
+
+            </div>
+          </div>
+        </div>
+
+        <br>
+        
+        <!-- Collapsible Day 2 Section -->
+        <div class="day-section">
+          <div class="d-flex align-items-center mb-2">
+            <h2 class="title mb-0 me-3">Day 2</h2>
+            <button class="btn btn-outline-secondary btn-sm collapse-toggle-btn" 
+                    type="button" 
+                    data-bs-toggle="collapse" 
+                    data-bs-target="#day2Content" 
+                    aria-expanded="false" 
+                    aria-controls="day2Content"
+                    title="Click to expand Day 2 content">
+              <i class="fas fa-plus collapse-icon"></i>
+              <span class="btn-text ms-1"></span>
+            </button>
+          </div>
+          
+          <div class="collapse" id="day2Content">
+            <div class="day-content">
+              <h4 class="mt-5 mb-3">"Data engineering with Rust" by Michele Vigilante</h4>
+
+              <p>This talk was quite interesting because it challenges the dominance of languages like Python in the data analysis field. The speaker gave an example of a marketplace app that handles high volumes of users. The goal is to analyse the users' activity to gain insights. The talk goes through a possible tech stack using non-traditional tools for building a complex multistage data pipeline that is robust and performant.</p>
+
+              <p>The first twist is avoiding the use of databases to store data and to use Kafka instead. With this, overhead and latency introduced by database write operations can be avoided. In Rust's ecosystem, the <code>rdkafka</code> (a production-grade Kafka client) and <code>axum</code> (a web framework) crates can be used to capture events and push them to Kafka.</p>
+
+              <p>How do we store OLAP (Online Analytical Processing) data for later processing?</p>
+              
+              <p>For this, the speaker suggested using Apache Parquet (Columnar) - a superior choice to CSV files. But why not a database? Well because this setup allows better portability and less cost than a typical Postgres RDS approach.</p>
+
+              <p>The data however needs to be loaded onto RAM to be processed. This is were Apache Arrow can be used together with the Apache Query engine to query this data. Other possible query engines include Polars, DuckDB and DuckLake.</p>
+
+              <p>But Parquet files are immutable and introduce some inefficiencies. Here you can make use of Lakehouse Table Formats which add a metadata layer on top of the Parquet files. Tool suggestions here include, Iceberg, Delta Lake and Ducklake. In this way, you can have a bunch of Parquet files in an S3 bucket which you can reach using the <code>delta-rs</code> crate which implements the Delta Lake protocol.</p>
+
+              <p>Once the data is ready, you can query it using the anaytical service you build. The analytical service itself can be a single binary file that lives on a Lambda function.</p>
+
+              <p>Finally the speaker closed with the following tips and tricks:</p>
+
+              <ul>
+                <li>think about partitioning from the start (finite datasets)</li>
+                <li>use event-based triggers instead of scheduling</li>
+                <li>batch processing is easier than streaming</li>
+                <li>parallelise your IO as much as possible (load data first then process)</li>
+                <li>split your pipelines up (check the Medallion architecture)</li>
+              </ul>
+
+              <h4 class="mt-5 mb-3">Panel discussion: "Rust adoption and safety critical systems"</h4>
+
+              <p>The panel discussed complex code in the automotive industry and its ever-growing need. They mention the need for a powerful and performant language such as Rust. Rust has a more modern ecosystem when compared to the C languages.</p>
+
+              <p>The current landscape in automotive companies is in the form of a hybrid system which includes legacy C/C++ code along with more recent Rust code. A complete rewrite of the legacy code is not the goal and is not something that is achievable.</p>
+
+              <p>The panel emphasised Rust's Safety-Critical Consortium and the value it brings to promoting Rust in safety-critical systems and industries. One panelist mentioned that although open-source code is being used in the car-maker industry, the responsibility of clean-running code lies on the car-makers themselves not the open-source community. That is why more developers are being employed inhouse.</p>
+
+              <p><i>How do you then convince upper management at a company to use Rust?</i></p>
+
+              <p>You can start by mentioning that it is an efficient language that is memory-safe. Although it might entail upfront costs at the beginning, the long-term value is worth this cost. Moreover, traditional industries like the automotive industry must consider young talent and ways to attract them via making use of newer technologies like Rust.
+                <br />
+              A panelist mentioned that from experience, he was failing to convince the C-level at his company to adopt Rust until he adjusted and tweaked his lingo with them because addressing C-level is an art.
+              </p>
+
+              <p>The future of Rust looks promising, it will not likely replace C languages in the next 10 years but will definitely be out there with them. That is because it is a sort of language that can be used from bare metal to tools to cloud.</p>
+
+              <p>Finally, a framework or guide on steps for adopting Rust or some sort of training path can prove to be highly valuable for the push to make Rust more widely used.</p>
+
+            <h4 class="mt-5 mb-3">"Profiling Rust in action" workshop by Polar Signals</h4>
+
+            <p>This workshop works best if you are on a Linux machine. The material is found on <a target="_blank" href="https://github.com/polarsignals/workshops/tree/main/rust">GitHub</a>.</p>
+
+            <p>Here are the steps for performance optimisation:</p>
+
+            <ul>
+              <li>do the profiling</li>
+              <li>do the benchmarking</li>
+              <li>do the optimising</li>
+            </ul>
+
+            <p>The speaker mentioned 2 ways to do profiling: 1) using Frame Pointers (if they are enabled on the OS) but if they are not then 2) <code>.eh_frame</code> which stands for exception handling frame.</p>
+
+            <p>The speaker then explained what eBPFs are - they allow the Linux kernel to be more dynamic by loading small programs or instructions. From there he introduced Parca Agent; the profiler, an eBPF program that will show the stack trace on the system and how often a program uses resources when running.</p>
+
+              <h4 class="mt-5 mb-3">"How Rust compiles" by Noratrieb</h4>
+
+              <p>The <a target="_blank" href="https://github.com/Noratrieb">speaker</a> of this talk is a core contributor to the Rust compiler. She started her talk by running 3 lines of code on <a target="_blank" href="https://play.rust-lang.org">Rust playground</a> that crash. The error goes away when using inlining (spolier alert: because there is no LLVM IR). She was therefore "promoting" inlining.</p>
+
+              <p>I am not a SME about what goes on under the hood in the Rust compiler but here are some terms to look up:</p>
+
+              <ul>
+                <li>postmonomorphism</li>
+                <li>monomorphisation</li>
+                <li>LTO (link-time optimisation)</li>
+                <li>LLVM is singlethreaded</li>
+                <li>MIR</li>
+                <li>codegen units</li>
+                <li>inlining</li>
+                <li>link-time optimisation (LTO)</li>
+              </ul>
+
+              <p>The speaker mentions that one can try to optimise for compile time or program speed but not both at once. She encouraged using inlining to optimise compilation. This entails adding the <code>#[inline]</code> attribute on top of functions and then benchmarking. But with LTO, optimisation of all the code happens all at once at the end.</p>
+
+              <p>Some useful resource include: the <a target="_blank" href="https://nnethercote.github.io/perf-book/">Rust perf book</a> and this <a target="_blank" href="https://corrode.dev/blog/tips-for-faster-rust-compile-times/">blog article</a>.</p>
+
+
+              <h4 class="mt-5 mb-3">"Misusing Const for Fn and Profit" by Tristram Oaten</h4>
+
+              <p>This was an entertaining talk and felt like theatre.  The speaker; who has a Youtube channel, should consider doing theatre if he doesn't already in real life.</p>
+
+              <p>His slides were done using a Rust-powered presentation software called <a target="_blank" href="https://mfontanini.github.io/presenterm/">Presenterm</a>.</p>
+
+              <p>Some "cool/funny" crates that he mentioned at the end of his talk include:</p>
+
+              <ul>
+                <li>SQLX</li>
+                <li>CONST random</li>
+                <li>comptime</li>
+                <li>constime</li>
+                <li>lazystatic</li>
+                <li>compile-time-run</li>
+                <li>crabtime</li>
+                <li>inline_python</li>
+                <li>edition</li>
+                <li>whichever-compiles</li>
+              </ul>
+
+            </div>
+          </div>
+        </div>
+
+        <br>
+      </div>
+    </div><!--//container-->
+  </article>
+      
+  <section class="cta-section theme-bg-light py-5">
+  <div class="container text-center">
+    <h2 class="heading">Another Rust blog</h2>
+    <div class="intro">(with the occasional DevOps article) 😬</div>
+    <div class="single-form-max-width pt-3 mx-auto">
+    {% include 'general/subscriber_form.html' %}
+    </div><!--//single-form-max-width-->
+  </div><!--//container-->
+  </section>
+    
+</div><!--//main-wrapper-->
+
+    
+{% endblock %}

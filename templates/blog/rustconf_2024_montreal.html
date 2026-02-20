@@ -1,0 +1,109 @@
+{% extends 'general/base.html' %}
+
+{% load static %}
+
+{% block head_tag %}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="RustConf 2024 in Montréal" content="Attending RustConf 2024 in Montréal" />
+  <meta name="keywords" content="RustConf, 2024, Canada, Montréal, Rust, Conference">
+  <title>RustConf 2024 in Montréal</title>
+{% endblock %}
+
+{% block body %}
+
+{% include 'general/side_navbar.html' %}
+
+<div class="main-wrapper">
+      
+  <article class="blog-post px-3 py-5 p-md-5">
+    <div class="container single-col-max-width">
+      <header class="blog-post-header">
+        <h2 class="title mb-2">Attending RustConf 2024 in Montréal</h2>
+        <div class="meta mb-3"><span class="date">September 2024</span><span class="time">4 min read</span></div>
+      </header>
+
+      <div class="blog-post-body">
+        <figure class="blog-banner">
+          <img class="img-fluid" src="{% static 'assets/images/rustconf_2024_montreal/rustconf_compressed.png' %}" alt="rustconf 2024">
+        </figure>
+
+        <p>I've been a Rust enthusiast for a year now and this was my first Rust conference and second in-person tech conference overall following DjangoCon last year in Edinburgh. It was also my first conference in the American continent.</p>
+
+        <p>People I've met during those 2 days were down-to-earth and approachable inspite their knowledge and experience, which makes me wonder if that is a trait exclusive to folks in the north American continent &#128517;</p>
+
+        <br>
+        <h2 class="title mb-2">Day 1</h2>
+
+        <h4 class="mt-5 mb-3">"Eternal Sunshine of the Rustfmt'ed Mind" by Nick Cameron</h4>
+
+        <p>I randomly chatted to <a href="https://ncameron.org">Nick</a> during day 2 about some Rust-themed t-shirts he was carrying with him, he was sat behind me and I happened to see the t-shirt pile. As I suspected, he is one of those Rust OGs. I did not know that at the time but will definitely talk to him about something other than t-shirts in the next RustConf!</p>
+
+        <p>His talk touched on the <code>Rustfmt</code> that will reformat Rust code based on specific guidelines.</p>
+
+        <h4 class="mt-5 mb-3">"Rustify Your API: A Journey from Specification to Implementation" by Isabel Atkinson</h4>
+
+        <p>A detailed walk through the design of the <code>bulkWrite</code> of the <a href="https://github.com/mongodb/mongo-rust-driver/tree/main">Rust MongoDB driver</a> which sits between the API and the database</p>
+
+        <h4 class="mt-5 mb-3">"How We Built a Rust-y Real-Time Public Transport Map" by Kyler Chin</h4>
+        <p><a href="https://catenarymaps.org/home">Catenary</a> is a Rust-powered public transport map that is led by students.</p>
+
+        <p>In this talk I learned about the <a href="https://github.com/rust-transit/gtfs-structure">GTFS</a> (general transit feed specification). As well as using <a href="https://www.openstreetmap.org/#map=3/71.34/-96.82">Open Street Map data</a>.</p>
+
+    	<p>It seems like Rust is a great language for reading big data and multi-threading &#128526;</p>
+
+        <h4 class="mt-5 mb-3">"Finding Bugs with cargo-mutants" by Martin Pool</h4>
+
+        <p>Tests are used to verify that the code runs as expected. Coverage, checks how much code undergoes testing. Mutations check if the tests do a good job in checking the code's behaviour.</p>
+
+        <p>Martin is the creator of <a href="https://mutants.rs/">cargo-mutants</a>.</p>
+
+        <h4 class="mt-5 mb-3">"An Outsider's Guide to the Rust Project"</h4>
+
+        <p>The Rust foundation supports the Rust project which in turn maintains the Rust language. The Rust project is made of 7 teams, each with a number of subteams. Those nominate the leadership council which in turn manages the teams and what they work on.</p>
+
+		<p>For communication, those teams use apps like Zulip, Matrix and Discord.</p>
+		<p>They also use bots like Bors, Crater and TriageBot.</p>
+
+		<br>
+		<h2 class="title mb-2">Day 2</h2>
+
+		<h4 class="mt-5 mb-3">"Rust for Linux" by Miguel Ojeda</h4>
+
+		<p>Yes Rust is slowly making its way into the Linux project. Miguel is the maintainer of the Rust for Linux project with efforts to add Rust support to the Linux kernel as described on the project's <a href="https://rust-for-linux.com">website</a> and their <a href="https://github.com/Rust-for-Linux/linux">Github repo</a>.</p>
+
+		<p>There is also a <a href="https://kernel.org/doc/rustdoc/latest/kernel/">crate</a> that contains Rust code for the Linux API.</p>
+
+		<h4 class="mt-5 mb-3">K2 Space's lightening talk by Michael Saqr</h4>
+
+		<p>Lightening talks were reserved for sponsors of the RustConf but I added this talk here because I later on had a chat with Micahel at the K2 Space booth and was very inspired by the advice he gave and his communication style.</p>
+
+		<p>As a developer in the midst of my career, I am interested to know how to stand out in the pile of applications that companies like K2 Space receive for a developer role. What I took from the chat with Michael is that I need to emphasize the impact of the projects I've worked on while being clear on using words like "I led a project" and "I delivered this and that result". This advice is timely as I look for my next opportunity. When describing my work experience, I often confuse bragging with being proud of the projects I've delivered and the impact they had.</p>
+
+		<h4 class="mt-5 mb-3">"Web Sites, Web Apps, and Web Assembly" by Chris Biscardi</h4>
+
+		<p>This is one of the more interesting talks of the conference. Using Rust as an alternative to JS-based frontend technologies.</p>
+
+		<p>The idea of using a unified language for both the frontend and the backend is certainly ideal. It seems that this is possible. Although Rust is a relatively younger language, it is possible to build lightweight web apps using Rust.</p>
+
+		<p>2 crate examples: <a href="https://leptos.dev">lepsos</a> and <a href="https://dioxuslabs.com">dioxus</a>.</p>
+
+        <br>
+      </div>
+    </div><!--//container-->
+  </article>
+      
+  <section class="cta-section theme-bg-light py-5">
+  <div class="container text-center">
+    <h2 class="heading">Another Rust blog</h2>
+    <div class="intro">(with the occasional DevOps article) 😬</div>
+    <div class="single-form-max-width pt-3 mx-auto">
+    {% include 'general/subscriber_form.html' %}
+    </div><!--//single-form-max-width-->
+  </div><!--//container-->
+  </section>
+    
+</div><!--//main-wrapper-->
+
+    
+{% endblock %}

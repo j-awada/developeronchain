@@ -1,0 +1,9 @@
+<form class="signup-form row g-2 g-lg-2 align-items-center" method="post" role="subscribe">{% csrf_token %}
+<div class="col-12 col-md-9">
+<label class="sr-only" for="subscriber_email">Your email</label>
+<input type="email" id="subscriber_email" name="subscriber_email" class="form-control me-md-1 semail" placeholder="Get notified about new posts via email" required>
+</div>
+<div class="col-12 col-md-2">
+<button type="submit" class="btn btn-primary">Subscribe</button>
+</div>
+</form><!--//signup-form-->
