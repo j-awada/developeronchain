@@ -123,6 +123,21 @@ def map_methods_in_rust(request):
 	return render(request, 'blog/map_methods_in_rust.html')
 
 
+def rustnation_uk_london_2026(request):
+	if request.method == 'POST':
+		try:
+			subscriber_email = request.POST['subscriber_email']
+			validate_email(subscriber_email)
+			if SubscriberEmail.objects.filter(subscriber_email=subscriber_email).exists():
+				return render(request, 'general/subscribed.html', {'subscribed_message': 'You are already subscribed! :)'})
+			subscribe_int = SubscriberEmail.objects.create(subscriber_email=subscriber_email)
+			subscribe_int.save()
+			return render(request, 'general/subscribed.html', {'subscribed_message': 'Thanks for subscribing! :)'})
+		except:
+			return render(request, 'general/subscribed.html', {'subscribed_message': 'Hmm, something went wrong.'})
+	return render(request, 'blog/rustnation_uk_london_2026.html')
+
+
 ## Unpublished
 
 def exploring_crypto_wallets(request):

@@ -1,0 +1,200 @@
+{% extends 'general/base.html' %}
+
+{% load static %}
+
+{% block head_tag %}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="Rust Nation UK in London" content="Attending Rust Nation UK 2026 in London" />
+  <meta name="keywords" content="Rust Nation UK, 2026, London, UK, Rust, Conference">
+  <title>Rust Nation UK 2026 in London</title>
+{% endblock %}
+
+{% block body %}
+
+{% include 'general/side_navbar.html' %}
+
+<div class="main-wrapper">
+      
+  <article class="blog-post px-3 py-5 p-md-5">
+    <div class="container single-col-max-width">
+      <header class="blog-post-header">
+        <h2 class="title mb-2">Attending Rust Nation 2026 in London</h2>
+        <div class="meta mb-3"><span class="date">Februaury 2026</span><span class="time">4 min read</span></div>
+      </header>
+
+      <div class="blog-post-body">
+        <figure class="blog-banner">
+          <img class="img-fluid" src="{% static 'assets/images/rustnation_uk_2026_london/main_stage_compressed.png' %}" alt="rustnation 2026">
+        </figure>
+
+        <p>I think this is my favourite Rust conference so far 😁</p>
+        <p>I don't know if it is because I'm in London or it could be due to multiple factors. A big city as such is able to attract huge names in the Rust community such as <a href="https://www.youtube.com/c/JonGjengset" target="_blank">Jon Gjengset</a> who was there with Helsing; a company specialising in defense and aiming to be Europe-first.</p>
+
+        <p>I think as well, attending a conference ideally entails the whole experience. The people you meet at the conference, people you connect with, things you learn, merch you collect, the quality of the food at the conference, the impression you get from the venue and the organisers as well as the energy of the city around you and the activities that you do when you're not at the conference. Needless to say, in a city like London, I always meet wonderful people in events I attend such as language events and I always have incredible food which makes me excited for my next visit to London ❤️</p>
+
+        <br>
+        <h2 class="title mb-2">Conference day</h2>
+
+        <p>Rust Nation UK is a 1-day conference with 1 day of workshops the day before and some post-conf activities the day after.</p>
+
+        <h4 class="mt-5 mb-3">"What if the way you code could change the planet?" by Lisa Crossman</h4>
+
+        <p>This was the first keynote talk on conference day. Lisa is a microbiologist and a Rust enthusiast. She is passionate about analysing genomics data more efficiently and in an environmentally conscious way. She has a <a href="sequenceanalysis.co.uk" target="_blank">sequencing consultancy</a> aimed at achieving the latter.</p>
+
+        <p>She starts of by stating the challenge of our current times which is computation of big data, notably the size of genomics data and the need for smarter approaches.</p>
+
+        <p>Knowing that the go-to language for researchers and ML engineers is Python, she argues for languages like Rust which are not only faster to run but also consume 70% less energy. Languages like Python with interpreted nature and typing make it challenging in terms of energy consumption.</p>
+
+        <p>She has created a community called <a href="https://github.com/LCrossman/microBioRust" target="_blank">MicroBioRust</a> to advocate for using Rust in genetic research. Together with her team, they have benchmarked BioPython and MicroBioRust with the latter being faster.</p>
+
+        <p>One challenge she mentions is trying to convince researchers in the field to switch to using Rust for the reasons listed above. But she makes a distinction between an occasional bioinformatician who cares about seeing clear errors, who doesn't want to worry about setting up or learning new tools but most importantly aims for long-term reproducability of their research papers.</p>
+
+        <p>A high-throughput bioinformatician on the other hand, cares about concurrency, memory efficiency, big data and cheaper cloud costs. And it is this group that looks to optimise their processes.</p>
+
+        <p>I found this talk to be both relevant and engaging. It is always interesting to see Rust being used in all sorts of domains.</p>
+
+        <h4 class="mt-5 mb-3">"From fRusTrait-ion to Async Mastery: Become a Rust Trait Hero in One Hour" by Lawrence Freeman</h4>
+
+        <p>This tutorial session covered Send/Sync marker traits between threads. A marker trait is a trait with no methods or associated items; as seen in their definitions in Rust source code <a href="https://github.com/rust-lang/rust/blob/main/library/core/src/marker.rs#L95" target="_blank">here</a> and <a href="https://github.com/rust-lang/rust/blob/main/library/core/src/marker.rs#L665" target="_blank">here</a>. They simply mark types with certain properties to help the compiler enforce safety rules for concurrency. With the Send trait indicating that the type can be safely transferred between threads and the Sync trait indicating that the type can be safely referenced or shared between threads.</p>
+
+        <p>The speaker described the borrow checker as a tory 😂 to help us understand that the borrow checker is strict and is there to enforce rigid rules about ownership and borrowing that help prevent unsafe memory access and maintain order and discipline in the code.</p>
+
+        <p>The speaker states the 3 types of concurrency: futures (async concurrency), multi-threads on a single core and true multiparallelism on multi-core.</p>
+
+        <p>One thing to understand is the difference between an atomic variable and a regular variable eg. <code>Atomici32</code> and <code>i32</code>. With atomic variables being types that support atomic operations. They are a special type that allow safe, lock-free concurrent access to data and that prevent race conditions. Unlike regular types like <code>i32</code> that are not thread-safe and that may cause data races.</p>
+
+        <p>Something else is cache line size. It is the amount of data (in bytes) that a CPU reads from or writes to memory at once. Knowing the cache line size can be important when a program performs concurrency to help threads avoid using the same cache line.</p>
+
+        <p>To find out the cache line size on your machine (Mac) you can use:</p>
+
+<pre>
+  $ sysctl hw.cachelinesize
+</pre>
+
+        <p>When I run that from terminal I get <code>hw.cachelinesize: 128</code></p>
+
+        <p>The <a href="https://github.com/fledgio-com/ordering_tests" target="_blank">first part of the tutorial</a> demonstrates the different ordering modes like Relaxed and Release and the behaviour of atomic variables across different architectures and scenarios.</p>
+
+        <p><a href="https://github.com/fledgio-com/custom_arc_workshop" target="_blank">Part 2</a> helps deepen the understanding of thread-safe shared ownership of data using atomic types.</p>
+      
+        <h4 class="mt-5 mb-3">"use&lt;'lifetimes&gt; for&lt;'what&gt;" by Ethan Brierley</h4>
+
+        <p>Lifetime is an important concept to understand when writing Rust code. The speaker aimed at explaining this topic from a somewhat mathematical point of view. But essentially, every type has a lifetime which is meta data used to ensure safety. A variable is "alive" as long as it will still be used later on in the code. </p>
+
+        <p><code>'static</code> is the longest possible lifetime in Rust and it means that the variable is available for the entire duration of the program.</p>
+
+        <p><code>where</code> is used to specify complex lifetimes or trait bounds for generic types making the constraint clearer and easier to read.</p>
+
+<pre>
+  fn print_ref&lt;'a, T&gt;(val: &'a T)
+  where
+    T: std::fmt::Display,
+    {
+      println!("{}", val);
+    }
+</pre>
+
+        <p><code>for</code> is used for higher-ranked trait bounds that allows specifying a trait or function implementation for any lifetime.</p>
+
+<pre>
+  fn takes_fn<F>(f: F)
+  where
+    F: for&lt;'a&gt; Fn(&'a str),
+    {
+      f("hello");
+    }
+</pre>
+
+        <p>The speaker advised to use a single lifetime variable in a function definition when possible. And there was a mention of <a href="https://rust-lang.github.io/polonius/what_is_polonius.html" target="_blank">Polonius</a> which has been integrated into rustc.</p>
+
+        <h4 class="mt-5 mb-3">"rk8s: A Lightweight Rust-based Alternative to Kubernetes" by Zhouxuan Tang</h4>
+
+        <p>This talk was one of my favourite. A team at <a href="https://www.nju.edu.cn/en/", target="_blank">Nanjing university</a> in China, has decided to rewrite Kubernetes in Rust with smarter design decisions.</p>
+
+        <p><a href="https://github.com/rk8s-dev/rk8s" target="_blank">rk8s</a> is a lightweight, Rust-based alternative to Kubernetes designed for container orchestration. It aims to manage distributed nodes more efficiently and runs on <a href="https://github.com/youki-dev/youki" target="_blank">Youki</a>; a container runtime written in Rust.</p>
+
+        <p>Some of the architectural differences between k8s and rk8s include a difference in structuring where the control plane in k8s is organised into different components such as the controller, node agent, state store, etc. compared to rk8s, where components run as independent processes and where QUIC is used for communication between the different components instead of gRPC.</p>
+
+        <p>Kubernetes follows 3 interface standards:</p>
+
+        <strong>CRI</strong>
+
+        <p>Container Runtime Interface, defines how k8s interacts with the container runtime to create and manage pods.</p>
+
+        <strong>CNI</strong>
+
+        <p>Container Network Interface, defines how pods acquire IP addresses to communicate with each other and the outside world.</p>
+
+        <strong>CSI</strong>
+
+        <p>Container Storage Interface, defines how persistent data is stored and mounted to pods.</p>
+
+        <p>rk8s makes use of various open-source tools to achieve smarter design decisions such as Youki which replaces some layers of complexity in the CRI standard by simple function calls to the container runtime. <a href="https://github.com/rustfs/rustfs" target="_blank">RustFS</a>; a high-performance distributed object storage system built in Rust.</p>
+
+        <p>The speaker concluded by mentioning some of their roadmap goals such as Rkforge; a Docker-like Rust-based tool for building container images. The team aims to build tools that are compatible with mainstream clients.</p>
+
+        <h4 class="mt-5 mb-3">"Rust Adoption At Scale with Ubuntu" by Jon Seager</h4>
+
+        <p>This is a well-suited keynote for this moment in time. With all the hype that we have been hearing around using Rust to rewrite elements of Linux in Rust.</p>
+
+        <p><a href="https://jnsgr.uk/" target="_blank">Jon Seager</a> is a technical leader at Canonical; the company that builds and maintains Ubuntu.</p>
+
+        <p>Jon mentions that they have replaced core system utilities with Rust-based ones in the Ubuntu 29.10 interim release. They hope to be more bald and replace coreutils, findutils and diffutils.</p>
+
+        <p>But why is Canonical advocating for Rust? He states that they want to be leaders in this widespread adoption, to attract talent, to have a better default UX and to build more resilient software knowing that Rust by nature provides many safe practices. Rust is included in the Ubuntu distribution and it is there for Rust developers.</p>
+
+        <p>He then concludes by mentioning 3 future projects they are working on: Anbox, Mir and Dqlite.</p>
+
+        <br>
+        <h2 class="title mb-2">Post conference event</h2>
+
+        <h4 class="mt-5 mb-3">"Rust in the age of AI" panel discussion</h4>
+
+        <p>Even though I categorise myself as a traditional software developer, I still thought this would be an important discussion to listen to. Mainly because I am interested in learning more about Rust and how it can be more widely adopted in domains seemingly dominated by Python. Also the panelists are well-known members of the Rust community.</p>
+
+        <p>The discussion was divided into 2 parts with the first being about inference and whether Rust can be used for that. And the second part about the use of LLMs to generate Rust code. I will list some notes below that I jotted down from each panelist.</p>
+
+        <strong>Part 1: Rust in inference</strong>
+
+        <hr>
+
+        <p><i>Stephan Eckes</i>: Rust can be used for inference while Python can still be used for training. Python is used mostly by researchers with little programming background. Not only is it difficult to convert this group to Rust, but also Python provides better dependency and versioning management when compared to languages like Rust and C. In addition to that, Python data modules like <code>numpy</code> can be loaded and integrated into Rust code.</p>
+
+        <p><i>David Haig</i>: Training should be done in Python because it is mostly done by scientists. Python is not a good fit for inference. He mentions an example of a vllm (virtual large language model) written in Python with half a million lines of code. Most of this code is just doing plumbing and "pretending to be a better language" which you can get out-of-the-box in Rust.</p>
+
+        <p><i>Stu Harris</i>: MLOps to create infrastructure do to training can be Rust-based. Rust might not be a good fit for research, why? Because it is challenging to do prototyping in Rust i.e. writing something initial to see what it roughly does then throwing it away or repurposing it. The priority is doing the research, and blocks should not be put in the way of that. He believes in using multiple languages for multiple purposes.</p>
+
+        <p>There was a question about <a href="https://www.modular.com/mojo" target="_blank">Mojo</a>; for software development in AI. The panelists mention that it is mostly a programming language for GPUs rather than a general purpose language. It is used for faster training or inference in the cloud. It could be used to optimise hardware running the models similar to when assembly languages are used.</p>
+
+        <p>For wider Rust adoption, Jon Gjengset mentions that the community needs to pay attention to tooling.</p>
+
+        <strong>Part 2: LLMs generating Rust code</strong>
+
+        <hr>
+
+        <p>This is an interesting topic. I myself was resistant to the idea of using LLMs to generate code. I think every language has beautiful features and digging deep into those features to learn more about how the language works under the hood can be a rewarding part of being a programmer. However about a year ago I worked at a startup and realised that time is precious for some companies. They need to iterate and ship fast to have a chance of succeeding. I learned that using LLMs to write repetitive code such as tests can save time. The key though is having background knowledge in coding and knowing what the LLM is generating because most of the time it returns complex code that might be a bottleneck for maintenance in the future. I find that I go back and forth with an LLM to get it to write good enough code.</p>
+
+        <p>The panelists here metioned the following thoughts: maybe use LLMs for things like interfaces, asking it to find bugs in a piece of code, to bounce ideas off of or to generate documentation. It shouldn't be blindy trusted and a human is needed to check the code that it generates.</p>
+
+        <p>I also find that depending on the task at hand, if there is enough training data online and if you describe what excatly it is that you are looking for, the LLM might give a reasonable output. But this might not be the case if the problem you are trying to solve is niche.</p>
+
+        <br>
+      </div>
+    </div><!--//container-->
+  </article>
+      
+  <section class="cta-section theme-bg-light py-5">
+  <div class="container text-center">
+    <h2 class="heading">Another Rust blog</h2>
+    <div class="intro">(with the occasional DevOps article) 😬</div>
+    <div class="single-form-max-width pt-3 mx-auto">
+    {% include 'general/subscriber_form.html' %}
+    </div><!--//single-form-max-width-->
+  </div><!--//container-->
+  </section>
+    
+</div><!--//main-wrapper-->
+
+    
+{% endblock %}
