@@ -1,0 +1,72 @@
+{% extends 'general/base.html' %}
+
+{% load static %}
+
+{% block head_tag %}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="Storage in Kubernetes" />
+  <meta name="keywords" content="Kubernetes, storage, DevOps, cloud, containers">
+  <title>Storage in Kubernetes</title>
+{% endblock %}
+
+{% block body %}
+
+{% include 'general/side_navbar.html' %}
+
+<div class="main-wrapper">
+      
+  <article class="blog-post px-3 py-5 p-md-5">
+    <div class="container single-col-max-width">
+      <header class="blog-post-header">
+        <h2 class="title mb-2">Storage in Kubernetes</h2>
+        <div class="meta mb-3"><span class="date">September 2024</span><span class="time">3 min read</span></div>
+      </header>
+
+      <div class="blog-post-body">
+
+        <p>While Kubernetes was originally designed for stateless applications, the demand for statefulness led to the introduction of the Container Storage Interface (CSI).</p>
+
+        <p>CSI is meant to abstract how containers interact with various storage systems. Before CSI, various storage vendors needed to develop their own drivers and bake them into K8s source code which meant that the latest features for a storage solution would be coupled to a K8s release containing those latest changes.</p>
+
+        <p>With the emergance of CSI; which is an <a href="https://github.com/container-storage-interface/spec" target="_blank">API specification</a>, <a href="https://kubernetes-csi.github.io/docs/drivers.html" target="_blank">drivers</a> implementing the CSI specs can be used in orchestrators like K8s.</p>
+
+        <h3 class="mt-5 mb-3">More about volumes</h3>
+
+        <p>We define volumes in a deployment to mount them into containers. They can hold configMap data or application source code. If the volume does not point to persistent storage, data on it is ephemeral. An example of an ephemeral volume type is emptyDir. Another example of a volume type is configMap and secret where the volume points to existing K8s resources. Another is hostPath which points at the node's filesystem making the pod dependent on the node it lives on.</p>
+
+        <p>At DC, we have the ONTAP-NAS StorageClass installed. This is a storage solution from NetApp Trident which provides storage solutions for apps hosted on K8s. StorageClass describes the underlying storage solution. ONTAP-NAP provides shared file storage via NFS or SMB protocols.</p>
+
+        <p>The different storage access modes we've seen include:</p>
+
+        <ul>
+          <li>ReadWriteOnce (RWO) - read-write by a single node</li>
+          <li>ReadWriteMany (RWX) - read-write by multiple nodes simultaneously</li>
+        </ul>
+
+        <p>A PersistentVolumeClaim (PVC); which we define, is a storage request that specifies what the workload or app needs eg. size, access mode and storage class. This request is evaluated by the control plane against available PVs and if suitable, the claim is bound.</p>
+
+        <p>The image below describes the different parts of storage on K8s at DC.</p>
+
+        <img class="img-fluid" width="50%" src="{% static 'assets/images/storage_in_k8s/volumes.jpeg' %}" alt="image">
+
+        <br>
+      </div>
+    </div><!--//container-->
+  </article>
+      
+  <section class="cta-section theme-bg-light py-5">
+  <div class="container text-center">
+    <h2 class="heading">Another Rust blog</h2>
+    <div class="intro">(with the occasional DevOps article) 😬</div>
+    <div class="single-form-max-width pt-3 mx-auto">
+    {% include 'general/subscriber_form.html' %}
+    </div><!--//single-form-max-width-->
+  </div><!--//container-->
+  </section>
+    
+</div><!--//main-wrapper-->
+
+    
+{% endblock %}
+
