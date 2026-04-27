@@ -14,5 +14,5 @@ urlpatterns = [
 	path('eurorust_2025_paris', views.eurorust_2025_paris, name='eurorust_2025_paris'),
 	path('map_methods_in_rust', views.map_methods_in_rust, name='map_methods_in_rust'),
 	path('rustnation_uk_london_2026', views.rustnation_uk_london_2026, name='rustnation_uk_london_2026'),
-	path('conoa_container_day', views.conoa_container_day, name='conoa_container_day'),
+	path('storage_in_k8s', views.storage_in_k8s, name='storage_in_k8s'),
 ]

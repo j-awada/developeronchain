@@ -138,7 +138,7 @@ def rustnation_uk_london_2026(request):
 	return render(request, 'blog/rustnation_uk_london_2026.html')
 
 
-def conoa_container_day(request):
+def storage_in_k8s(request):
 	if request.method == 'POST':
 		try:
 			subscriber_email = request.POST['subscriber_email']
@@ -150,7 +150,7 @@ def conoa_container_day(request):
 			return render(request, 'general/subscribed.html', {'subscribed_message': 'Thanks for subscribing! :)'})
 		except:
 			return render(request, 'general/subscribed.html', {'subscribed_message': 'Hmm, something went wrong.'})
-	return render(request, 'blog/conoa_container_day.html')
+	return render(request, 'blog/storage_in_k8s.html')
 
 ## Unpublished
 
