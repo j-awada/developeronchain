@@ -56,6 +56,15 @@
           <img class="img-fluid" width="70%" src="{% static 'assets/images/storage_in_k8s/volumes.jpeg' %}" alt="image">
         </div>
 
+        <p>At DC, PVs are provided dynamically i.e. they are created on-demand when a PVC is submitted.</p>
+
+        <p>In terms of backups, there exists some Custom Resource Definitions (CRDs) that can be used (see below). The snapshot controller watches these resources and triggers creating or deleting a snapshot against a CSI endpoint.</p>
+
+        <ul>
+          <li><code>VolumeSnapshotClass</code> defines parameters such as the CSI driver used plus additional settings.</li>
+          <li><code>VolumeSnapshot</code> - is a request that is typically created by the user per namespace. It uses a <code>PersistentVolumeClaim</code> as a data source for the snapshot.</li>
+          <li><code>VolumeSnapshotContent</code> - is a request for a snapshot taken from a volume in the cluster that was provisioned by an admin.</li>
+
         <br>
       </div>
     </div><!--//container-->
