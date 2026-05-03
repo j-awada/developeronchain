@@ -48,7 +48,7 @@
 
         <p>Volumes are usually defined in a <code>Deployment</code> template and are mounted into containers. A volume can point to a <code>configMap</code> resource or can hold application source code, it can also point to <code>secret</code> resources. Another volume type is <code>hostPath</code> which points at the node's filesystem making the pod dependent on the node it lives on. If the volume does not point to persistent storage, data on it is ephemeral. An example of an ephemeral volume type is <code>emptyDir</code>.</p>
 
-        <p>A PersistentVolumeClaim (PVC) is a storage request that specifies what the workload or app needs for eg. size, access mode and storage class. It defines a specific <code>StorageClass</code> that determines which storage backend to use. This request is evaluated by the control plane against available PVs and if suitable, the claim is bound.</p>
+        <p>A PersistentVolumeClaim (PVC) is a storage request that specifies what the workload or app needs for eg. size, access mode and storage class. It references a <code>StorageClass</code> that determines which storage backend to use. This request is evaluated by the control plane against available PVs and if suitable, the claim is bound.</p>
 
         <p>The image below describes a simple storage provisioning process.</p>
 
@@ -63,7 +63,7 @@
         <ul>
           <li><code>VolumeSnapshotClass</code> defines parameters such as the CSI driver used plus additional settings.</li>
           <li><code>VolumeSnapshot</code> - is a request that is typically created by the user per namespace. It uses a <code>PersistentVolumeClaim</code> as a data source for the snapshot.</li>
-          <li><code>VolumeSnapshotContent</code> - is a request for a snapshot taken from a volume in the cluster that was provisioned by an admin.</li>
+          <li><code>VolumeSnapshotContent</code> - is the resource that represents a snapshot taken from a volume in the cluster.</li>
 
         <br>
       </div>
