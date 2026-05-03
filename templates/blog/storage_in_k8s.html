@@ -20,7 +20,7 @@
     <div class="container single-col-max-width">
       <header class="blog-post-header">
         <h2 class="title mb-2">Storage in Kubernetes</h2>
-        <div class="meta mb-3"><span class="date">April 2026</span><span class="time">3 min read</span></div>
+        <div class="meta mb-3"><span class="date">May 2026</span><span class="time">3 min read</span></div>
       </header>
 
       <div class="blog-post-body">
@@ -62,7 +62,7 @@
 
         <ul>
           <li><code>VolumeSnapshotClass</code> defines parameters such as the CSI driver used plus additional settings.</li>
-          <li><code>VolumeSnapshot</code> - is a request that is typically created by the user per namespace. It uses a <code>PersistentVolumeClaim</code> as a data source for the snapshot.</li>
+          <li><code>VolumeSnapshot</code> - this represents the request for a snapshot from a PVC and it maintains the status of creating the snapshot from the data held by the PVC onto the VolumeSnapshotContent.</li>
           <li><code>VolumeSnapshotContent</code> - is the resource that represents a snapshot taken from a volume in the cluster.</li>
 
         <br>
