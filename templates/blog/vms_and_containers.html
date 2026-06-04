@@ -1,0 +1,111 @@
+{% extends 'general/base.html' %}
+
+{% load static %}
+
+{% block head_tag %}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="Virtualisation and containerisation" />
+  <meta name="keywords" content="Kubernetes, virtual machines, containers, DevOps, cloud">
+  <title>Virtualisation and Containerisation</title>
+{% endblock %}
+
+{% block body %}
+
+{% include 'general/side_navbar.html' %}
+
+<div class="main-wrapper">
+      
+  <article class="blog-post px-3 py-5 p-md-5">
+    <div class="container single-col-max-width">
+      <header class="blog-post-header">
+        <h2 class="title mb-2">Virtualisation and Containerisation</h2>
+        <div class="meta mb-3"><span class="date">June 2026</span><span class="time">3 min read</span></div>
+      </header>
+
+      <div class="blog-post-body">
+
+        <h3 class="mt-5 mb-3">Virtualisation</h3>
+
+        <p>Hypervisor-based virtualisation enables running multiple operating systems in parallel by running them in virtual machines managed by a hypervisor. The hypervisor allocates hardware resources such as CPU, RAM and disk to each VM.</p>
+
+        <h3 class="mt-5 mb-3">Hypervisors</h3>
+
+        <p>Are software, firmware, or hardware platforms that create and run virtual machines. They can be split into 2 categories:</p>
+
+        <ul>
+          <li><b>Type 1 (bare-metal) hypervisors:</b> these run directly on the host's hardware to control the hardware and manage guest operating systems. Examples include VMware ESXi, Microsoft Hyper-V, and Xen.</li>
+          <li><b>Type 2 (hosted) hypervisors:</b> these run on a conventional operating system just as other computer programs do. Examples include Oracle VirtualBox and VMware Workstation.</li>
+        </ul>
+
+        <h3 class="mt-5 mb-3">Containerisation</h3>
+
+        <p>Containerisation or OS-level virtualisation is when the OS kernel supports multiple isolated user-space environments called containers. Containerisation engines include LXC.</p>
+        
+        <p>Docker which is an application , uses its own containerisation engine <code>libcontainer</code> to create containers. The Open Container Initiative (OCI) was formed to standardise specs such as the container runtime. The Container Network Interface (CNI) provides specifications for container networking to make them less dependent on the hosting environment.</p>
+
+        <h3 class="mt-5 mb-3">Docker architecture</h3>
+
+        <p>The main entity of Docker is the Docker Engine which runs on top of the OS and consists of; among others, the Docker Daemon. The daemon use <code>libcontainer</code> to create the container environemnts.</p>
+
+        <p>In Docker, isolated container environments are implemented using Linux kernel featrues, for example:</p>
+
+        <ul>
+          <li><b>Namespace:</b> Docker creates Linux namespaces for process isolation, network and file system mounting. Process outside this namespace are not visible.</li>
+          <li><b>Control groups:</b> Docker uses control groups to limit the resources each container uses.</li>
+          <li><b>Capabilities:</b> this allows the container process to run using capabilities instead of running as superuser.</li>
+        </ul>
+
+        <h3 class="mt-5 mb-3">Container sandboxing</h3>
+
+        <p>Used to increase the isolation of containers alongside the Linux kernel features mentioned above. This can be achieved by for example:</p>
+
+        <ul>
+          <li>Placing a container on top of an OS running in a VM aka VM-based Sandboxing eg. <a href="https://katacontainers.io/" target="_blank">Kata containers</a></li>
+          <li>Or by providing each container with its own kernel aka Container Kernel Sandboxing eg. <a href="https://gvisor.dev/" target="_blank">gVisor</a></li>
+        </ul>
+
+        <h3 class="mt-5 mb-3">Kubernetes architecture</h3>
+
+        <p>A set of worker nodes together with a master node form a cluster. The worker nodes run containers assigned by the master. The worker and the master nodes have different components:</p>
+
+        <strong>Master node components</strong>
+
+        <ul>
+          <li><b>etcd:</b> a key-value storage system to keep track of the state of the cluster</li>
+          <li><b>apiserver:</b> is the main interface for interacting with the cluster. It is a REST API which accepts requests through HTTP. Each request is passed through authentication, authorisation and admission controllers to verify legitimacy.</li>
+          <li><b>scheduler:</b> deploys or schedules pods onto nodes</li>
+        </ul>
+
+        <strong>Worker node components</strong>
+
+        <ul>
+          <li><b>kubelet:</b> an agent which ensures containers are running inside pods according to the defined specifications of the pod</li>
+          <li><b>kube-proxy:</b> it configures a proxy such that the pods can communicate with each other through proxy endpoints</li>
+          <li><b>container runtime:</b> this is needed to run the containers on Kubernetes</li>
+        </ul>
+
+        <strong>Kubernetes networking</strong>
+
+        <p>Kubernetes supports the CNI specification which assumes that all containers and nodes must be able to communicate with each other through IP without needing to perform IP translation beforehand i.e. without NAT. In reality, NetworkPolicy objects are used to control how pods communicate with each other via Labels. That is because pods are ephemeral with chaging IP addresses.</p>
+
+        <br>
+      </div>
+    </div><!--//container-->
+  </article>
+      
+  <section class="cta-section theme-bg-light py-5">
+  <div class="container text-center">
+    <h2 class="heading">Another Rust blog</h2>
+    <div class="intro">(with the occasional DevOps article) 😬</div>
+    <div class="single-form-max-width pt-3 mx-auto">
+    {% include 'general/subscriber_form.html' %}
+    </div><!--//single-form-max-width-->
+  </div><!--//container-->
+  </section>
+    
+</div><!--//main-wrapper-->
+
+    
+{% endblock %}
+
