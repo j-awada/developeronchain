@@ -152,6 +152,21 @@ def storage_in_k8s(request):
 			return render(request, 'general/subscribed.html', {'subscribed_message': 'Hmm, something went wrong.'})
 	return render(request, 'blog/storage_in_k8s.html')
 
+
+def supply_chain_security(request):
+	if request.method == 'POST':
+		try:
+			subscriber_email = request.POST['subscriber_email']
+			validate_email(subscriber_email)
+			if SubscriberEmail.objects.filter(subscriber_email=subscriber_email).exists():
+				return render(request, 'general/subscribed.html', {'subscribed_message': 'You are already subscribed! :)'})
+			subscribe_int = SubscriberEmail.objects.create(subscriber_email=subscriber_email)
+			subscribe_int.save()
+			return render(request, 'general/subscribed.html', {'subscribed_message': 'Thanks for subscribing! :)'})
+		except:
+			return render(request, 'general/subscribed.html', {'subscribed_message': 'Hmm, something went wrong.'})
+	return render(request, 'blog/supply_chain_security.html')
+
 ## Unpublished
 
 def exploring_crypto_wallets(request):

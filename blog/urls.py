@@ -15,4 +15,5 @@ urlpatterns = [
 	path('map_methods_in_rust', views.map_methods_in_rust, name='map_methods_in_rust'),
 	path('rustnation_uk_london_2026', views.rustnation_uk_london_2026, name='rustnation_uk_london_2026'),
 	path('storage_in_k8s', views.storage_in_k8s, name='storage_in_k8s'),
+	path('supply_chain_security', views.supply_chain_security, name='supply_chain_security'),
 ]
