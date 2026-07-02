@@ -1,0 +1,71 @@
+{% extends 'general/base.html' %}
+
+{% load static %}
+
+{% block head_tag %}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="Software Supply Chain Security: SLSA, Pwn Requests, and SBOMs" />
+  <meta name="keywords" content="Software Supply Chain Security, SLSA, Pwn Requests, SBOMs">
+  <title>Software Supply Chain Security</title>
+{% endblock %}
+
+{% block body %}
+
+{% include 'general/side_navbar.html' %}
+
+<div class="main-wrapper">
+      
+  <article class="blog-post px-3 py-5 p-md-5">
+    <div class="container single-col-max-width">
+      <header class="blog-post-header">
+        <h2 class="title mb-2">Software Supply Chain Security</h2>
+        <div class="meta mb-3"><span class="date">July 2026</span><span class="time">4 min read</span></div>
+      </header>
+
+      <div class="blog-post-body">
+
+        <p>TLDR: SLSA identifies how a software was built and if it can be trusted. SBOM shows the package tree of a software.</p>
+
+        <h3 class="mt-5 mb-3">SLSA (Supply-chain Levels for Software Artifacts)</h3>
+
+        <p><a href="https://slsa.dev/" target="_blank">SLSA</a> is a security framework or a list of practices that help control tampering with software packages in a dependency tree. It provides a number of tracks and levels to determine how secure a software product is, making it useful for everyone involved in producing and consuming software.</p>
+
+        <p>A SLSA track focusses on a particular aspect of the supply chain such as the Source, Build or Dependencies tracks. Within a track, there exists levels of hardened security practices with higher levels providing more security guarantees. The Build track for example, verifies that the track was built as expected. It includes levels starting from L0 for "No guarantees" to L3 which corresponds to "Hardened build platform".</p>
+
+        <h3 class="mt-5 mb-3">About Pwn Requests</h3>
+
+        <p>A "pwn request" is a form of supply chain attack in GitHub Actions. It occurs when a priveledged workflow in a repository gets triggered by <code>pull_request_target</code> where it executes unreviewed code from an untrusted external pull request. <code>pull_request_target</code> would then have access to variables and secrets of the repo eg. <code>GITHUB_TOKEN</code>.</p>
+
+        <p>Different security levels come with different levels of risk exposure. An example is the widely reported <a href="https://tanstack.com/blog/npm-supply-chain-compromise-postmortem" target="_blank">Tanstack attack</a> that happened on May 11th 2026. During this attack, a <code>pull_request_target</code> action was triggered from a fork-contributed code in the base repo. The action executed malicious code in the trusted repo. The attacker scraped the GitHub runner's memory and extracted the OIDC token to sign and produce cryptographically valid artifacts. The pnpm package store was therefore poisoned with 84 malicious packages under legitimate TanStack identity.</p>
+
+        <h3 class="mt-5 mb-3">How the attack relates to SLSA</h3>
+
+        <p>npm's provenance achieves a Build L2 level, which means that the build runs on a hosted platform and artifact creation is authenticated. This binds a package to its canonical source repo and build system. This protects against registering packages that have no legitimate source. Build L3 on the other hand, requires that the build platform guarantees isolation. This means that cache poisoning would not be possible since tokens and code would not persist in shared memory. With L3, builds can not influence one another and credentials are inaccessible in build steps. A Build L3 practice would have prevented the TanStack attack but so would workflow hygiene. Workflows that use <code>pull_request_target</code> to execute forked code should apply least-privilege permissions.</p>
+
+        <p>TanStack published a <a href="https://tanstack.com/blog/incident-followup" target="_blank">remediations document</a> following this attack. Actions included: disabling the cache in the release pipeline, removing all the <code>pull_request_target</code> actions from their CI, enforcing 2FA and other.</p>
+
+        <h3 class="mt-5 mb-3">SBOM</h3>
+
+        <p>One way to improve the security of the software supply chain is to use SBOMs. SBOM stands for Software Bill of Materials and it can be generated at image build time to capture the full dependency tree including the OS packages.</p>
+
+        <br>
+      </div>
+    </div><!--//container-->
+  </article>
+      
+  <section class="cta-section theme-bg-light py-5">
+  <div class="container text-center">
+    <h2 class="heading">Another Rust blog</h2>
+    <div class="intro">(with the occasional DevOps article) 😬</div>
+    <div class="single-form-max-width pt-3 mx-auto">
+    {% include 'general/subscriber_form.html' %}
+    </div><!--//single-form-max-width-->
+  </div><!--//container-->
+  </section>
+    
+</div><!--//main-wrapper-->
+
+    
+{% endblock %}
+
