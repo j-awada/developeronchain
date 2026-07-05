@@ -43,9 +43,9 @@
 
         <p>npm's provenance achieves a Build L2 level, which means that the build runs on a hosted platform and artifact creation is authenticated. This binds a package to its canonical source repo and build system. This protects against registering packages that have no legitimate source. Build L3 on the other hand, requires that the build platform guarantees isolation. This means that cache poisoning would not be possible since tokens and code would not persist in shared memory. With L3, builds can not influence one another and credentials are inaccessible in build steps. A Build L3 practice would have prevented the TanStack attack but so would workflow hygiene. Workflows that use <code>pull_request_target</code> to execute forked code should apply least-privilege permissions.</p>
 
-        <p>TanStack published a <a href="https://tanstack.com/blog/incident-followup" target="_blank">remediations document</a> following this attack. Actions included: disabling the cache in the release pipeline, removing all the <code>pull_request_target</code> actions from their CI, enforcing 2FA and other.</p>
+        <p>TanStack published a <a href="https://tanstack.com/blog/incident-followup" target="_blank">remediations document</a> following this attack, that includes amongst other things, disabling the cache in the release pipeline, removing all the <code>pull_request_target</code> actions from their CI, enforcing 2FA and other.</p>
 
-        <h3 class="mt-5 mb-3">SBOM</h3>
+        <h3 class="mt-5 mb-3">SBOM (Software Bill of Materials)</h3>
 
         <p>One way to improve the security of the software supply chain is to use SBOMs. SBOM stands for Software Bill of Materials and it can be generated at image build time to capture the full dependency tree including the OS packages.</p>
 
@@ -53,7 +53,7 @@
 
         <h3 class="mt-5 mb-3">The value of having an SBOM</h3>
 
-        <p>When something goes wrong; i.e. when an open source package gets compromised, the SBOM can be queried to identify the affected artifact. This saves time tracing the compromised package in a software.</p>
+        <p>When something goes wrong i.e. when an open source package gets compromised, the SBOM can be queried to identify the affected artifact. This saves time tracing the compromised package in a software.</p>
 
         <p>SBOMs can be used during vulnerability scanning where new CVEs (Common Vulnerabilities Exposures) are matched against the components listed in the SBOM without having to analyse the image. Here's how an SBOM can be generated for a Docker image:</p>
 
