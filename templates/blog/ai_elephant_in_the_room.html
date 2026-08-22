@@ -1,0 +1,65 @@
+{% extends 'general/base.html' %}
+
+{% load static %}
+
+{% block head_tag %}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="AI, software developer role, coding career and future of AI" />
+  <meta name="keywords" content="AI, software developer role, coding career and future of AI">
+  <title>AI, the elephant in the room</title>
+{% endblock %}
+
+{% block body %}
+
+{% include 'general/side_navbar.html' %}
+
+<div class="main-wrapper">
+      
+  <article class="blog-post px-3 py-5 p-md-5">
+    <div class="container single-col-max-width">
+      <header class="blog-post-header">
+        <h2 class="title mb-2">AI, the elephant in the room</h2>
+        <div class="meta mb-3"><span class="date">August 2026</span><span class="time">3 min read</span></div>
+      </header>
+
+      <div class="blog-post-body">
+
+        <p>Coding agents have made incredible progress in the past few years. I have started using agents about a year ago; at work, and like many developers, I've benefited from faster product delivery.</p>
+
+        <p>I have recently been thinking about my career and whether I would have any relevance in the job market 5 years from now. Seeing agents generate code so fast, code that gets more accurate and intelligent with every model version that gets released. Also hearing about other fields like mathematics and how a 4-year long PhD program can simply be replaced by a trained model that is able to prove lemmas and conjectures in minutes if not even less.</p>
+
+        <p>I think it is now clear that being able to write code has no intrinsic value at the present moment. What should the job of a software developer be defined as in that case.</p>
+
+        <p>I think it is leaning more towards deciding on what to do rather than how to do things.</p>
+
+        <p>Understanding the different components in a system is important. Why <i>X</i> is being used instead of <i>Y</i>. The right questions to ask when building a resilient and scalable platform. The bigger picture such as business requirements and project direction.</p>
+
+        <h3 class="mt-5 mb-3">About learning a new programming language</h3>
+
+        <p>As someone who's been interested in the Rust programming language, the right approach I can follow would be to understand the internals of the language and what differentiates it from other languages. Being able to read complex Rust code and to reason as to why it was written the way it was. This can help me keep up with the code that an AI produces. A human overlooking what gets generated and understanding what is happening is quite valuable.</p>
+
+        <p>It is no longer about building a tool using Rust i.e. hand written code that a human spends hours or days on. This can be simply delegated to AI. It is more about what to build and the steps to go about building and releasing it instead of the effort of writing the actual code.</p>
+
+        <p>At the present moment at work, I mostly tell AI what to do. The reasoning and decision making is still part of my role. Sometimes it gets things wrong, in which case I have to correct it and tell it to try again. Sometimes it is not capable of producing a result that is good enough in which case I abandon what it produced and resort to something different.</p>
+
+        <br>
+      </div>
+    </div><!--//container-->
+  </article>
+      
+  <section class="cta-section theme-bg-light py-5">
+  <div class="container text-center">
+    <h2 class="heading">Another Rust blog</h2>
+    <div class="intro">(with the occasional DevOps article) 😬</div>
+    <div class="single-form-max-width pt-3 mx-auto">
+    {% include 'general/subscriber_form.html' %}
+    </div><!--//single-form-max-width-->
+  </div><!--//container-->
+  </section>
+    
+</div><!--//main-wrapper-->
+
+    
+{% endblock %}
+
