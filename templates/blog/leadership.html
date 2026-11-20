@@ -1,0 +1,61 @@
+{% extends 'general/base.html' %}
+
+{% load static %}
+
+{% block head_tag %}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="Leadership in software development." />
+  <meta name="keywords" content="Software development, architecture, manager, leader, team.">
+  <title>Transformational Leadership</title>
+{% endblock %}
+
+{% block body %}
+
+{% include 'general/side_navbar.html' %}
+
+<div class="main-wrapper">
+      
+  <article class="blog-post px-3 py-5 p-md-5">
+    <div class="container single-col-max-width">
+      <header class="blog-post-header">
+        <h2 class="title mb-2">Transformational Leadership</h2>
+        <div class="meta mb-3"><span class="date">Nov 2026</span><span class="time">1 min read</span></div>
+      </header>
+
+      <div class="blog-post-body">
+
+        <p>Good leadership in software development is directly related to team productivity and product delivery. Below is an excerpt from <i>Accelerate by Nicole Forsgren</i> about transformational leadership.</p>
+
+        <h3 class="mt-5 mb-3">Transformational Leadership</h3>
+
+        <ul>
+            <li><b>Vision</b>: has a clear understanding of where the organisation is going and where it should be in 5 years.</li>
+            <li><b>Inspirational communication</b>: communicates in a way that inspires and motivates even in an uncertain or changing environment.</li>
+            <li><b>Intellectual stimulation</b>: challenges followers to think about problems in new ways.</li>
+            <li><b>Supportive leadership</b>: demonstrates care and consideration of followers' personal needs and feelings.</li>
+            <li><b>Personal recognition</b>: praises and acknowledges achievements of goals and improvements in work quality, personally compliments others when they do outstanding work.</li>
+        </ul>
+
+        <p>I think this means that good leaders are technically capable system thinkers but also equally as important, emotionally intelligent and empathetic.</p>
+
+        <br>
+      </div>
+    </div><!--//container-->
+  </article>
+      
+  <section class="cta-section theme-bg-light py-5">
+  <div class="container text-center">
+    <h2 class="heading">Another Rust blog</h2>
+    <div class="intro">(with the occasional DevOps article) 😬</div>
+    <div class="single-form-max-width pt-3 mx-auto">
+    {% include 'general/subscriber_form.html' %}
+    </div><!--//single-form-max-width-->
+  </div><!--//container-->
+  </section>
+    
+</div><!--//main-wrapper-->
+
+    
+{% endblock %}
+
